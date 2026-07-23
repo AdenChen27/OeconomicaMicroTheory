@@ -1,0 +1,42 @@
+\documentclass[reqno,letterpaper]{article}
+\usepackage[
+  tufte,
+  clearsection=false,
+  header=false
+]{/Users/aden/latex/adenc}
+
+\usepackage[authordate,backend=biber]{biblatex-chicago}
+\addbibresource{ref.bib}
+
+\usepackage{csquotes}
+\usepackage{fancyhdr}
+
+\author{}
+\date{Compiled \today}
+
+\makeatletter
+\fancypagestyle{chapterfirst}{
+  \fancyhf{}
+  \fancyhead[L]{\small\@author}
+  \fancyhead[R]{\small\@date}
+  \fancyfoot[C]{\small\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+}
+\makeatother
+
+\providecommand{\chapterfile}{common-knowledge}
+
+\ifdefined\chapterfile
+\else
+  \PackageError{chapter}{No chapter selected}{Define \string\chapterfile\space before loading chapter.tex.}
+\fi
+
+\begin{document}
+
+\thispagestyle{chapterfirst}
+
+\input{chapters/\chapterfile}
+
+\printbibliography
+
+\end{document}

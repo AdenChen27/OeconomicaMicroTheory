@@ -1,0 +1,108 @@
+% !TeX root = ../main.tex
+\chapter{The No-Trade Theorem}
+\chapterauthor{Aden Chen}
+
+\input{chapters/farkas}
+
+
+\section{The No-Trade Theorem}
+Voluntary trading between individual is possible only when the agents are different in some way.
+One agent, for instance, may have more apples than the other (and thus a lower marginal utility for consuming apples), or they might like apples more.
+Can asymmetric information be the cause of a trade?
+% \Textcite{milgrom1982InformationTradea} answered this question in the negative.
+We will answer this question in the negative following \Textcite{morris1994TradeHeterogeneous}.\mnote{\Textcite{morris1994TradeHeterogeneous} proved this result in a more general setting. What we present here is a special case referred to as the ``no betting case.''
+I first learned this result from Ben Brooks, without whom I would not have stumbled upon this proof in the appendix of this little known paper.
+}
+
+The setup of our model is as follows:
+\begin{itemize}
+  \item A finite set of states \(\Theta\).
+  \item A type space \(T = \prod_i T_i\) modelling information.
+    % Each agent \(i\) has some prior belief \(\pi_i\) over the states and types.
+    % After observing her type \(t_i\), agent \(i\) updates her prior via Bayes' rule to \(\pi_i | t_i\).
+  \item Agent \(i = 1, \dots, n\).
+    Agent \(i\) has prior \(\pi_i \in \Delta(T \times \Theta)\) and forms posterior \(\pi_i(t_{-i}, \theta | t_i)\) upon observing her type \(t_i\).
+  \item Assume each agent is risk neutral and has quasilinear utility.
+\end{itemize}
+
+A trade is a function \(\gamma: T \times \Theta \to \bR^n\) specifying transfers to each type given the state.
+Say a trade \(\gamma\) is \vocab{feasible} if no outside resource is need to facilitate it:
+\[
+  \sum_i \gamma_i(t, \theta) \leq 0, \quad \forall (t, \theta).
+\]
+Say a trade is \vocab{acceptable} if each type has a nonnegative interim payoff
+\[
+  \sum_{t_{-i}, \theta} \pi_i(t_{-i}, \theta | t_i) \gamma_i(t, \theta) \geq 0, \quad \forall i, t_i,
+\]
+with strict inequality for some \(i, t_i\).
+
+\begin{remark}
+  The acceptability condition really confused me when I initially studied this model.
+  If each agent only has one \emph{realized} type, why do we care that they would also accept this trade at other types?
+
+  One answer is that capturing the outcomes for all possible types (even the ones that can never be realized) is convenient for analysis.
+  To see this, suppose there are two types of player \(A\), \(t_0^A\) and \(t_1^A\), and both \(A\) and \(B\) knows that \(A\) finds \(\gamma\) acceptable iff \(A\) she is of type \(t_1^A\).
+  If \(A\) is indeed of type \(t_1^A\), she would by assumption find this trade acceptable.
+  However, \(B\) does not know what type \(A\) has.
+  Accordingly, he evaluates the trade using his interim payoff.
+  In doing so, he analyses whether a trade will be accepted at each possible type profile \(t\) and weigh the corresponding payoffs using the probabilities of the types.
+  Instead of going through such trouble, we can simply impose that a trade must be acceptable at all \(t\)'s --- and doing so is without loss, since we can also set the payoffs to be \(0\) when a trade is not accepted at some profile --- so that interim payoffs has the simple form above.
+\end{remark}
+
+Given systems of inequalities described above, it is only natural to apply some form of Farkas' lemma.
+
+\begin{lemma}\label{lem:farkas-variant-1}
+  Given \(A \in \bR^{m \times n}\) and column \(j\), exactly one of the following is true:
+  \begin{enumerate}[label=(\roman*)]
+    \item There exists \(x \geq 0\), \(x_j > 0\), such that \(Ax = 0\).
+    \item There exists \(y\) such that \(yA \geq 0\) with strict inequality for column \(j\).
+  \end{enumerate}
+\end{lemma}
+\begin{proof}
+  Apply \Cref{lem:farkas-geom} to \(\tilde{A} = [A', e_j']'\) and \(\tilde{b} = e_{m + 1}\).
+\end{proof}
+
+\begin{lemma}\label{lem:farkas-variant-2}
+  Given \(A \in \bR^{m \times n}\) and a set of columns \(J\), exactly one of the following is true:
+  \begin{enumerate}[label=(\roman*)]
+    \item There exists \(x \geq 0\), \(x_j > 0\) for all \(j \in J\), such that \(Ax = 0\).
+    \item There exists \(j \in J\) and \(y \in \bR^m\) such that \(yA \geq 0\) for all \(j\), with strict inequality for each column \(j\).
+  \end{enumerate}
+\end{lemma}
+\begin{proof}
+  From \Cref{lem:farkas-variant-1}, (ii) implies not (i).
+  On the other hand, if (ii) does not hold, then \Cref{lem:farkas-variant-1} implies that for each \(j \in J\), there exists \(x^j \geq 0\) with \(x_j^j > 0\), such that \(Ax^j = 0\).
+  Then \(x \coloneq \sum_j x^j\) satisfy (i).
+\end{proof}
+
+We can now state and prove a version of the no-trade theorem:
+\begin{theorem}
+  There is no trade if and only if \(\pi_i\) are the same across \(i\).
+\end{theorem}
+\begin{proof}
+  A trade exists if and only if there are \(\gamma_i\) for each \(i\) such that
+  \begin{align*}
+    - \sum_i \gamma_i(t, \theta)
+    &\geq 0, \quad \forall t, \theta \\
+    \sum_{t_{-i}, \theta} \pi_i(t_{-i}, \theta | t_i) \gamma_i(t, \theta)
+    &\geq 0, \quad \forall i, t_i,
+  \end{align*}
+  with the second line being strict for some \(t_i\).
+  This maps into \Cref{lem:farkas-variant-2} case (ii), with rows indexed by \(T \times \Theta \times \{1, \dots, n\}\), columns indexed by \((T \times \Theta) \sqcup (\sqcup_i T_i)\), and \(J = \sqcup_i T_i\).
+  Thus there is no trade if and only if there exists \(\tilde{\phi}: T \times \Theta \to \bR_+\) and \(\tilde{\lambda}_i : T_i \to \bR_{++}\) such that
+  \[
+    - \tilde{\phi}(t, \theta)
+    + \tilde{\lambda}_i(t_i) \pi_i(t_{-i}, \theta | t_i)
+    = 0.
+  \]
+  In this case, \(\tilde{\phi} / \sum \tilde{\phi}\) is a common prior.
+\end{proof}
+
+
+
+
+\begin{itodo}
+  Add extension to general setting?
+  Talk a sentence or two about milgrom-stokey.  
+\end{itodo}
+

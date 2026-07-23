@@ -1,0 +1,125 @@
+% !TeX root = ../main.tex
+\chapter{Common Knowledge}
+\chapterauthor{Aden Chen}
+
+If differences in beliefs originate from asymmetric information, then knowing that others hold different beliefs should make a rational agent revise her own belief.
+To what extent would this revision happen?
+\Textcite{aumann1976AgreeingDisagree} shows that if agents with different information were to ``agree'' on their beliefs --- if their beliefs are common knowledge ---then their beliefs must be exactly the same; agents cannot agree to disagree.
+
+% In this seminal 4-page paper, Aumann writes:
+%
+% \begin{displayquote}
+%   We publish this observation with some diffidence, since once one has the appropriate framework, it is mathematically trivial.
+%   Intuitively, though, it is not quite obvious ...
+% \end{displayquote}
+%
+% ``Mathematically trivial'' is surely an understatement, but there is an element of truth: the more important contribution of this paper is perhaps the model of information or knowledge used, and the definition of common knowledge.
+% Once this framework is in place, the main result can be derived using a rather simple, geometric argument.
+% ``Not quite obvious'' is surely an understatement.
+
+% In what follows, we will walk over the model of information Aumann worked with and his definition of common knowledge.
+% With the right definitions, Aumann's result can be recovered with a simple, geometric argument.
+% \mnote{
+% In this seminal 4-page paper, Aumann writes:
+% ``We publish this observation with some diffidence, since once one has the appropriate framework, it is mathematically trivial.
+% Intuitively, though, it is not quite obvious...''
+% }
+
+To describe the epistemic model Aumann worked with, we start with the finite state space \(\Omega\).
+Each element of this set (each state) \(\omega \in \Omega\) is interpreted as a potential world the agents could be living in.
+It gives a complete description of the world, including the information each individual possesses and their beliefs.
+
+For players \(i = 1, 2\), let \(\cP_i\) be a partition of \(\Omega\) that reflects how finely each player can distinguish the different potential states of the world using their information.
+For a state \(\omega \in \Omega\), write \(\cP_i(\omega)\) for the cell in \(\cP_i\) containing \(\omega\).
+If the true state is \(\omega\), player \(i\) would know that the state must be in \(\cP_i(\omega)\), but cannot pin down the exact state if \(\cP_i(\omega)\) contains multiple elements.
+% \mnote{
+%   Compared to a model of type spaces, this model makes it clearer what exactly each player \emph{knows}.
+%   % if we understand \(i\) knowing proposition \(q\) as meaning ``\(i\) believes the true statement \(q\) with certainty.''
+% }
+
+Since each \(\omega\) offers a complete description of the way information is distributed to each individual, we can assume that each agent \(i\) knows the partitions of both players \(\cP_i\) and \(\cP_j\), though of course she can observe only \(\cP_i(\omega)\) and not \(\cP_j(\omega)\) at \(\omega\).
+
+\begin{definition}
+  Say \(i\) \vocab{knows} event \(E \subset \Omega\) at \(\omega\) if \(E \supset \cP_i(\omega)\).
+  Say \(E \subset \Omega\) is \vocab{common knowledge} at \(\omega\) if \(i\) knows \(E\), \(j\) knows \(E\), \(i\) knows \(j\) knows \(E\), \(j\) knows \(i\) knows \(E\), \(i\) knows \(j\) knows \(i\) knows \(E\), ad infinitum.
+\end{definition}
+
+To make sense of this definition, consider a proposition \(q\) which can be either true or false, and let \(E\) denote the set of states in which \(q\) is true.
+When does agent \(i\) \emph{know} --- believe with certainty --- that \(q\) is true?
+She does so exactly when \(q\) is true in each of the states deemed possible by her, i.e., when \(\cP_i(\omega) \subset E\).
+\mnote[-10em]{This definition is reminiscent of the idea that knowledge is justified true belief. Justified in the sense of concluding from \(\omega \in \cP_i(\omega) \subset E\), true in the sense that \(E \ni \omega\). Gettier cases are not a problem here since in this model we leave no room for epistemic luck. All logical deductions of the agents are always accurate.}
+
+
+Write \(\cP_1 \land \cP_2\) for the finest common coarsening of \(\cP_1\) and \(\cP_2\).
+We have the following characterization of common knowledge.
+\mnote{
+  The set of all partitions with the refinement order (\(\cP_1 \leq \cP_2\) if \(\cP_2\) refines \(\cP_1\)) is a lattice.
+  \(\cP_1 \land \cP_2\) is the infimum (or the meet) of \(\cP_1\) and \(\cP_2\).
+}
+
+\begin{proposition}
+  \(E\) is common knowledge at \(\omega\) iff it contains \((\cP_1 \land \cP_2)(\omega)\).
+\end{proposition}
+\begin{proof}
+  At \(\omega\), \(1\) knows that the true state must be in \(\cP_1(\omega)\).
+  She can thus infer that \(2\) must have observed \(\cP_2(\omega')\) for some \(\omega' \in \cP_1(\omega)\).
+  Thus, \(1\) knows \(2\) knows \(E\) if for each of these \(\omega'\), \(E \supset \cP_2(\omega')\).
+  In other words, \(1\) knows \(2\) know \(E\) if \(E\) includes all \(P \in \cP_2\) intersecting \(\cP_1(\omega)\).
+
+  To generalize this idea to higher order beliefs, say \(\omega'\) is \vocab{reachable} \(\omega\) if there is a sequence \(P^1, \dots, P^k\) such that \(\omega \in P^1\), \(\omega' \in P^k\), and consecutive \(P^j\) intersect and belong alternatively to \(\cP_1\) and \(\cP_2\).
+  The analysis above shows that the \(k\)th statement ``\(1\) knows \(2\) knows ... \(E\)'' holds iff \(E\) contains all \(\omega'\) reachable from \(\omega\) in step \(k\).
+  Thus \(E\) is common knowledge iff it contains the union of each reachable \(\omega'\), for steps \(k \geq 0\).
+  This union is precisely \((\cP_1 \land \cP_2)(\omega)\).
+\end{proof}
+
+Say event \(E \subset \Omega\) is \vocab{self-evident to \(i\)} if for each \(\omega \in E\) we have \(\cP_i(\omega) \subset E\).
+Say \(E\) is \vocab{self-evident} if it is self-evident to each agent \(i\).
+It is not hard to see that \(E\) is self-evident to \(i\) iff it can be written as the union of cells in \(\cP_i\).
+Thus from the previous result we have the following
+\begin{corollary}
+  \(E\) is common knowledge iff it contains a self-evident event.
+\end{corollary}
+
+
+Now suppose each player starts with the same prior \(\pi\) over \(\Omega\).
+At \(\omega\), upon receiving her information given by \(\cP_i\), player \(i\) updates her belief to \(\pi\left(\cdot \mid \cP_i(\omega)\right)\).
+
+\begin{proposition}
+  Fix event \(A \subset \Omega\) and numbers \(p_1, p_2\).
+  If it is common knowledge at \(\theta\) that \(\pi(A|\cP_1(\omega)) = p_1\) and \(\pi(A|\cP_2(\omega)) = p_2\), then \(p_1 = p_2\).
+\end{proposition}
+\begin{proof}
+  Write \(P = (\cP_1 \land \cP_2)(\omega) = \cup_j P^j\) where \(P^j \in \cP_1\).
+  With the characterization of common knowledge above, we know that \(\pi(A \mid \cP^j) = p_1\) for each \(j\).
+  Thus by the law of iterated expectation, \(\pi(A \mid P) = p_1\).
+  A symmetric argument shows \(\pi(A|P) = p_2\).
+\end{proof}
+
+
+In this sense, it is impossible to ``agree to disagree''!
+So, what do we make of this result when people do seem to agree to disagree?
+Some potential explanations:
+
+\paragraph{The common prior assumption may not be true.}
+Our model assumes that each player start from the same prior, which is then updated after she observes the cell containing the true state \(\cP_i(\omega)\).
+Thus while we assume the same prior, we can model differences in beliefs due to the players having different information.
+
+To relax the common assumption, one should first ask what, if not information, causes the differences in priors?
+Without a good answer to this question, explaining behavior based on arbitrary priors seem to some extent like a slippery slope --- one akin to explanations based on preferences.
+
+\paragraph{Rationality.}
+Agents might not update their beliefs accurately, or might not trust that others would update their beliefs accurately.
+
+\paragraph{Common knowledge is a strong requirement.}
+The definition of knowledge here allows for no uncertainty, and common knowledge requires each agent to know all higher order beliefs hold.
+Is this really the notion of agreement that people have when they agree to disagree?
+
+The most likely scenario for common knowledge is probably public announcements (``town hall meetings'').
+When information is disseminated in public, not only does everyone knows of the information, they also know that others know this information.
+(The public announcement is a \emph{self-evident} event in the sense defined above.)
+But even in this case, can the do agents really believe with certainty that all others received the information accurately?
+
+In such cases it is perhaps only case the that agents have ``almost common knowledge,'' where instead of \emph{all} statements of the form ``\(i\) knows \(j\) knows ...'' are true, only a (potentially very large) number of these are true.
+In terms of the agents' actions, however, common knowledge can be very different from ``almost common knowledge'' (e.g., \textcite{rubinstein1992ElectronicMail}).
+
+

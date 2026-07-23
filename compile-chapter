@@ -1,0 +1,38 @@
+#!/bin/sh
+
+set -eu
+
+if [ "$#" -ne 1 ]; then
+  echo "Usage: $0 CHAPTER" >&2
+  echo "Example: $0 farkas" >&2
+  exit 2
+fi
+
+chapter=${1#chapters/}
+chapter=${chapter%.tex}
+
+case "$chapter" in
+  ""|*/*)
+    echo "Invalid chapter name: $1" >&2
+    exit 2
+    ;;
+esac
+
+if [ ! -f "chapters/$chapter.tex" ]; then
+  echo "Chapter not found: chapters/$chapter.tex" >&2
+  exit 1
+fi
+
+aux_dir="aux/$chapter"
+mkdir -p "$aux_dir"
+
+latexmk \
+  -xelatex \
+  -interaction=nonstopmode \
+  -halt-on-error \
+  -outdir="$aux_dir" \
+  -jobname="$chapter" \
+  -usepretex="\\def\\chapterfile{$chapter}" \
+  chapter.tex
+
+cp "$aux_dir/$chapter.pdf" "$chapter.pdf"

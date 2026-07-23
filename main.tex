@@ -1,0 +1,30 @@
+\documentclass[oneside,reqno,letterpaper]{book}
+\usepackage[
+  tufte,
+  clearsection=false,
+]{/Users/aden/latex/adenc}
+
+
+\usepackage[authordate,backend=biber]{biblatex-chicago}
+\addbibresource{ref.bib}
+
+\usepackage{csquotes}
+
+
+\title{Notes for Oeconomica Microeconomic Theory Cohort}
+\author{}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\input{Introduction}
+\input{chapters/common-knowledge}
+\input{chapters/no-trade}
+
+\appendix
+
+\printbibliography
+
+\end{document}
