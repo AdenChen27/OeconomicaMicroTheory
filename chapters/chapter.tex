@@ -1,3 +1,4 @@
+% Standalone chapter driver.
 \documentclass[reqno,letterpaper]{article}
 \usepackage[
   tufte,
@@ -9,22 +10,22 @@
 \addbibresource{ref.bib}
 
 \usepackage{csquotes}
-\usepackage{fancyhdr}
 
 \author{}
 \date{Compiled \today}
 
 \makeatletter
-\fancypagestyle{chapterfirst}{
-  \fancyhf{}
-  \fancyhead[L]{\small\@author}
-  \fancyhead[R]{\small\@date}
-  \fancyfoot[C]{\small\thepage}
-  \renewcommand{\headrulewidth}{0.4pt}
+\NewDocumentCommand{\chapter}{s o m}{%
+  \title{#3}%
+  \@ifnextchar\chapterauthor
+    {\standalone@chapterauthor}
+    {\maketitle}%
+}
+\def\standalone@chapterauthor\chapterauthor#1{%
+  \author{#1}%
+  \maketitle
 }
 \makeatother
-
-\providecommand{\chapterfile}{common-knowledge}
 
 \ifdefined\chapterfile
 \else
@@ -32,8 +33,6 @@
 \fi
 
 \begin{document}
-
-\thispagestyle{chapterfirst}
 
 \input{chapters/\chapterfile}
 
