@@ -1,0 +1,48 @@
+#!/bin/sh
+
+set -eu
+
+chapters_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+project_dir=$(CDPATH= cd -- "$chapters_dir/.." && pwd)
+cd "$project_dir"
+
+if [ "$#" -ne 1 ]; then
+  echo "Usage: $0 CHAPTER" >&2
+  echo "Example: $0 common-knowledge" >&2
+  exit 2
+fi
+
+chapter=${1#chapters/}
+chapter=${chapter%.tex}
+
+case "$chapter" in
+  ""|*/*)
+    echo "Invalid chapter name: $1" >&2
+    exit 2
+    ;;
+esac
+
+if [ ! -f "$chapters_dir/$chapter.tex" ]; then
+  echo "Chapter not found: chapters/$chapter.tex" >&2
+  exit 1
+fi
+
+if ! grep -Eq '^[[:space:]]*\\chapter(\*)?([[:space:]]*\[[^]]*\])?[[:space:]]*\{' "$chapters_dir/$chapter.tex"; then
+  echo "Not a chapter file: chapters/$chapter.tex" >&2
+  echo "Compile the top-level chapter that inputs this file instead." >&2
+  exit 1
+fi
+
+aux_dir="$chapters_dir/aux/$chapter"
+mkdir -p "$aux_dir"
+
+latexmk \
+  -xelatex \
+  -interaction=nonstopmode \
+  -halt-on-error \
+  -outdir="$aux_dir" \
+  -jobname="$chapter" \
+  -usepretex="\\def\\chapterfile{$chapter}" \
+  "$chapters_dir/chapter.tex"
+
+cp "$aux_dir/$chapter.pdf" "$chapters_dir/$chapter.pdf"
