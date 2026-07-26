@@ -3,10 +3,6 @@
 \chapterauthor{Aden Chen}
 
 \section{Aumann's Agreement Theorem}
-If differences in beliefs originate from asymmetric information, then knowing that others hold different beliefs should make a rational agent revise her own belief.
-To what extent would this revision happen?
-\Textcite{aumann1976AgreeingDisagree} shows that if agents with different information were to ``agree'' on their beliefs --- if their beliefs are common knowledge ---then their beliefs must be exactly the same; agents cannot agree to disagree.
-
 % In this seminal 4-page paper, Aumann writes:
 %
 % \begin{displayquote}
@@ -26,6 +22,10 @@ To what extent would this revision happen?
 % Intuitively, though, it is not quite obvious...''
 % }
 
+If differences in beliefs originate from asymmetric information, then knowing that others hold different beliefs should make a rational agent revise her own belief.
+To what extent would this revision happen?
+\Textcite{aumann1976AgreeingDisagree} shows that if agents with different information were to ``agree'' on their beliefs --- if their beliefs are common knowledge --- then their beliefs must be exactly the same; agents cannot agree to disagree.
+
 To describe the epistemic model Aumann worked with, we start with the finite state space \(\Omega\).
 Each element of this set (each state) \(\omega \in \Omega\) is interpreted as a potential world the agents could be living in.
 It gives a complete description of the world, including the information each individual possesses and their beliefs.
@@ -41,7 +41,7 @@ If the true state is \(\omega\), player \(i\) would know that the state must be 
 Since each \(\omega\) offers a complete description of the way information is distributed to each individual, we can assume that each agent \(i\) knows the partitions of both players \(\cP_i\) and \(\cP_j\), though of course she can observe only \(\cP_i(\omega)\) and not \(\cP_j(\omega)\) at \(\omega\).
 
 \begin{definition}
-  Say \(i\) \vocab{knows} event \(E \subset \Omega\) at \(\omega\) if \(E \supset \cP_i(\omega)\).
+  Say \(i\) \vocab{knows} the event \(E \subset \Omega\) at \(\omega\) if \(E \supset \cP_i(\omega)\).
   Say \(E \subset \Omega\) is \vocab{common knowledge} at \(\omega\) if \(i\) knows \(E\), \(j\) knows \(E\), \(i\) knows \(j\) knows \(E\), \(j\) knows \(i\) knows \(E\), \(i\) knows \(j\) knows \(i\) knows \(E\), ad infinitum.
 \end{definition}
 
@@ -65,18 +65,18 @@ We have the following characterization of common knowledge.
   At \(\omega\), \(1\) knows that the true state must be in \(\cP_1(\omega)\).
   She can thus infer that \(2\) must have observed \(\cP_2(\omega')\) for some \(\omega' \in \cP_1(\omega)\).
   Thus, \(1\) knows \(2\) knows \(E\) if for each of these \(\omega'\), \(E \supset \cP_2(\omega')\).
-  In other words, \(1\) knows \(2\) know \(E\) if \(E\) includes all \(P \in \cP_2\) intersecting \(\cP_1(\omega)\).
+  In other words, \(1\) knows \(2\) knows \(E\) if \(E\) includes all \(P \in \cP_2\) intersecting \(\cP_1(\omega)\).
 
-  To generalize this idea to higher order beliefs, say \(\omega'\) is \vocab{reachable} \(\omega\) if there is a sequence \(P^1, \dots, P^k\) such that \(\omega \in P^1\), \(\omega' \in P^k\), and consecutive \(P^j\) intersect and belong alternatively to \(\cP_1\) and \(\cP_2\).
+  To generalize this idea to higher-order beliefs, say \(\omega'\) is \vocab{reachable} from \(\omega\) if there is a sequence \(P^1, \dots, P^k\) such that \(\omega \in P^1\), \(\omega' \in P^k\), and consecutive \(P^j\) intersect and belong alternately to \(\cP_1\) and \(\cP_2\).
   The analysis above shows that the \(k\)th statement ``\(1\) knows \(2\) knows ... \(E\)'' holds iff \(E\) contains all \(\omega'\) reachable from \(\omega\) in step \(k\).
-  Thus \(E\) is common knowledge iff it contains the union of each reachable \(\omega'\), for steps \(k \geq 0\).
+  Thus \(E\) is common knowledge iff it contains every \(\omega'\) reachable in \(k\) steps for \(k \geq 0\).
   This union is precisely \((\cP_1 \land \cP_2)(\omega)\).
 \end{proof}
 
-Say event \(E \subset \Omega\) is \vocab{self-evident to \(i\)} if for each \(\omega \in E\) we have \(\cP_i(\omega) \subset E\).
+Say an event \(E \subset \Omega\) is \vocab{self-evident to \(i\)} if for each \(\omega \in E\) we have \(\cP_i(\omega) \subset E\).
 Say \(E\) is \vocab{self-evident} if it is self-evident to each agent \(i\).
 It is not hard to see that \(E\) is self-evident to \(i\) iff it can be written as the union of cells in \(\cP_i\).
-Thus from the previous result we have the following
+Thus, from the previous result, we have the following
 \begin{corollary}
   \(E\) is common knowledge if it contains a self-evident event.
 \end{corollary}
@@ -102,31 +102,31 @@ So, what do we make of this result when people do seem to agree to disagree?
 Some potential explanations:
 
 \paragraph{The common prior assumption may not be true.}
-Our model assumes that each player start from the same prior, which is then updated after she observes the cell containing the true state \(\cP_i(\omega)\).
-Thus while we assume the same prior, we can model differences in beliefs due to the players having different information.
+Our model assumes that each player starts from the same prior, which is then updated after she observes the cell containing the true state \(\cP_i(\omega)\).
+Thus, while we assume the same prior, we can model differences in beliefs due to the players having different information.
 
-To relax the common assumption, one should first ask what, if not information, causes the differences in priors?
-Without a good answer to this question, explaining behavior based on arbitrary priors seem to some extent like a slippery slope --- one akin to explanations based on preferences.
+To relax the common prior assumption, one should first ask what, if not information, causes the differences in priors?
+Without a good answer to this question, explaining behavior based on arbitrary priors seems to some extent like a slippery slope --- one akin to explanations based on preferences.
 
 \paragraph{Rationality.}
-Agents might not update their beliefs accurately, or might not trust that others would update their beliefs accurately.
+Agents might not update their beliefs accurately or might not trust that others would update their beliefs accurately.
 
 \paragraph{Common knowledge is a strong requirement.}
-The definition of knowledge here allows for no uncertainty, and common knowledge requires each agent to know all higher order beliefs hold.
+The definition of knowledge here allows for no uncertainty, and common knowledge requires each agent to know all higher-order beliefs hold.
 Is this really the notion of agreement that people have when they agree to disagree?
 
 The most likely scenario for common knowledge is probably public announcements (``town hall meetings'').
-When information is disseminated in public, not only does everyone knows of the information, they also know that others know this information.
+When information is disseminated in public, not only does everyone know of the information, but they also know that others know this information.
 (The public announcement is a \emph{self-evident} event in the sense defined above.)
 But even in this case, do agents really believe with certainty that all others received the information accurately?
 
 
 \section{Rubinstein's Electronic Mail Game}
-In cases described above, it is perhaps only believable that agents have ``almost common knowledge,'' where instead of \emph{all} statements of the form ``\(i\) knows \(j\) knows ...'' are true, only a (potentially very large) number of these are true.
+In cases described above, it is perhaps only believable that agents have ``almost common knowledge,'' where instead of \emph{all} statements of the form ``\(i\) knows \(j\) knows ...'' being true, only a (potentially very large) number of these are true.
 How different is almost common knowledge from common knowledge?
 \Textcite{rubinstein1989ElectronicMail} shows that in terms of agents' actions (which is what we ultimately care about), they can be quite different.
 
-Rubinstein consider the following coordination game:
+Rubinstein considers the following coordination game:
 \[
   \begin{array}{c cc}
   & \multicolumn{2}{c}{\text{State } a} \\
@@ -146,28 +146,28 @@ Rubinstein consider the following coordination game:
   \qquad
   0 < M < L,
 \]
-where states \(a\) and \(b\) happen with probability \(1 - p\) and \(p < 1 / 2\).
+where states \(a\) and \(b\) happen with probabilities \(1 - p\) and \(p < 1 / 2\).
 The agents in this game would like to coordinate on \((A, A)\) at state \(a\) and \((B, B)\) at \(b\).
 If players coordinate on the action that matches the state, each player gets \underline{m}edium payoff of \(M\).
-If players coordinate on the action that doesn't match the state, each gets \(0\), and if players failed to coordinate, the player who plays \(B\) gets a \underline{l}arge negative payoff of \(-L\).
+If players coordinate on the action that doesn't match the state, each gets \(0\), and if players fail to coordinate, the player who plays \(B\) gets a \underline{l}arge negative payoff of \(-L\).
 
 
 \subsection{The Complete Information Benchmark}
-Let's first consider what players would do if the state is common knowledge.
-In this case, upon knowing the state to be \(\theta \in \{a, b\}\), it is as if they agents are both playing the complete information game \(G_\theta\), in which payoffs and are completely described by the payoffs in the coordination game under state \(\theta\).
-In each state, there are two Nash equilibria \((A, A)\) and \((B, B)\).
+Let's first consider what players would do if the state were common knowledge.
+In this case, upon knowing the state to be \(\theta \in \{a, b\}\), it is as if the agents are both playing the complete information game \(G_\theta\), in which payoffs and are completely described by the payoffs in the coordination game under state \(\theta\).
+In each state, there are two Nash equilibria: \((A, A)\) and \((B, B)\).
 In particular, successful coordination --- playing \((A, A)\) in \(a\) and \((B, B)\) in \(b\) --- is a Nash equilibrium.
 
 
 \subsection{The Electronic Mail}
 Now suppose only agent \(1\) observes the state \(\theta \in \{a, b\}\).
 When she sees state \(b\), she immediately sends an email to agent \(2\).
-Upon receiving an email, each agent's compute is setup to automatically reply with a confirmation.
+Upon receiving an email, each agent's computer is set up reply automatically with a confirmation.
 Due to a technical difficulty, each message will be lost with a probability of \(\eps \in (0, 1)\) independently.
-Thus in state \(b\), agent \(1\) sends an email to \(2\), who send a confirmation back to \(1\), who then confirms the confirmation, and so on until a message is eventually lost (this must happen since \(\eps > 0\)), at which point each agent's compute displays the number of messages sent by her machine, which we denote as \(T_i\).
+Thus in state \(b\), agent \(1\) sends an email to \(2\), who sends a confirmation back to \(1\), who then confirms the confirmation, and so on until a message is eventually lost (this must happen since \(\eps > 0\)), at which point each agent's computer displays the number of messages sent by her machine, which we denote as \(T_i\).
 
 Note that \(T_i\) counts the ``degree'' of almost common knowledge in the following sense.
-Under state \(a\), no messages is sent, \(T_1 = T_2 = 0\), and no one knows \(b\) (since \(b\) is not the state).
+Under state \(a\), no messages are sent, \(T_1 = T_2 = 0\), and no one knows \(b\) (since \(b\) is not the state).
 Under state \(b\), agent \(1\) knows state \(b\) and \(T_1 \geq 1\).
 If \(T_2 \geq 1\), then agent \(2\) received agent \(1\)'s first message and thus also both (i) knows state \(b\) and (ii) knows that agent \(1\) knows \(b\).
 In general, if \(T_1, T_2 \geq t\), then all statements of the form ``1 knows 2 knows ... \(b\),'' with no more than \(t\) ``knows,`` are true.
@@ -184,12 +184,12 @@ Let us first consider agent \(1\)'s action when \(T_1 = 0\), i.e., under state \
 To compare the outcome of this game to the successful coordination benchmark, let us suppose that agent \(1\) plays \(A\) in this case.
 Now, what should agent \(2\) do when \(T_2 = 0\)?
 There are two possibilities for observing \(T_2 = 0\).
-It could be the case that it is state \(a\) and thus \(1\) did not send an email; it could also be the case that the state is \(b\) but agent \(1\)'s first email is lost.
+It could be the case that the state is \(a\) and thus \(1\) did not send an email; it could also be the case that the state is \(b\) but agent \(1\)'s first email is lost.
 These two cases happen with probabilities proportional to \(1 - p\) and \(p \eps\).
 To evaluate the payoffs of playing each action, agent \(2\) still needs to know what agent \(1\) would do.
 In the first case (\(T_1 = 0\), state \(a\)), we have assumed that agent \(1\) would play \(A\).
 In the second case (\(T_1 = 1\)), it is much harder to say what agent \(1\) would do since that depends on what agent \(2\) would do at \(T_1 = 1\), which is what we are trying to figure out.
-However, note that when player \(2\) plays \(A\) her payoff does not depend on what player \(1\) does, and when she plays \(B\) we can bound her payoff.
+However, note that when player \(2\) plays \(A\), her payoff does not depend on what player \(1\) does, and when she plays \(B\), we can bound her payoff.
 This gives the following payoff matrix:
 \[
   \begin{array}{cc cc}
@@ -198,7 +198,7 @@ This gives the following payoff matrix:
   T_1 = 1 & \propto p \eps & 0 & \leq M
   \end{array}
 \]
-Since \((1 - p) / p \eps > 2\), one can show easily that
+Since \((1 - p) / p \eps > 2\), one can easily show that
 \[
   \text{Payoff from playing \(A\) }
   = (1 - p) M
@@ -209,18 +209,18 @@ so player \(2\) should play \(A\) at \(T_2 = 1\).
 
 We can repeat this argument for higher values of \(T_i\), only this time the probabilities and payoffs are slightly different.
 Let's illustrate with agent \(1\)'s decision.
-\mnote{Agent \(2\)'s indexing is slightly different (the two possibilities she face upon seeing \(T_2 = t\) are \(T_1 = t\) and \(T_1 = t + 1\)), but the argument is exactly the same.}
-When player \(1\) sees \(T_1 = t \geq 1\), two possibilities remain: \(1\)'s \(t\)th message failed to arrive (\(T_2 = t - 1\)), or \(2\)'s confirmation to this message failed to arrive (\(T_2 = t\)).
-These two cases occur with probabilities proportional to \(\eps\) and \((1 - \eps) \eps\), and in the first case by the induction argument we know that \(2\) would play \(A\).
-Using this information we can construct the payoff matrix as before:
+\mnote{Agent \(2\)'s indexing is slightly different (the two possibilities she faces upon seeing \(T_2 = t\) are \(T_1 = t\) and \(T_1 = t + 1\)), but the argument is exactly the same.}
+When player \(1\) sees \(T_1 = t \geq 1\), two possibilities remain: \(1\)'s \(t\)th message failed to arrive (\(T_2 = t - 1\)), or \(2\)'s confirmation of this message failed to arrive (\(T_2 = t\)).
+These two cases occur with probabilities proportional to \(\eps\) and \((1 - \eps) \eps\), and in the first case we know by the induction argument that \(2\) would play \(A\).
+Using this information, we can construct the payoff matrix as before:
 \[
   \begin{array}{cc cc}
     & \text{prob.} & A & B \\
-  T_2 = t - 1 & \propto 1 & M & -L \\
-  T_2 = t & \propto 1 - \eps & \geq 0 & \leq 0
+  T_2 = t - 1 & \propto 1 & 0 & -L \\
+  T_2 = t & \propto 1 - \eps & 0 & \leq M
   \end{array},
 \]
-which show that player \(1\) plays \(A\) at \(T_1 = t\) as well.
+which shows that player \(1\) plays \(A\) at \(T_1 = t\) as well.
 
 We have now shown the following
 \begin{theorem}
