@@ -2,7 +2,7 @@
 \chapter{Farkas' Lemma}\label{chap:farkas}
 \chapterauthor{Aden Chen}
 
-Many problems in microeconomic theory (an example is presented in the next section) can be reduced to solving a system of linear inequalities \(Ax \leq b\).\mnote{The inequality in \(A \leq b\) is interpreted componentwise.}
+Many problems in microeconomic theory (an example is presented in the next section) can be reduced to solving a system of linear inequalities \(Ax \leq b\).\mnote{The inequality in \(Ax \leq b\) is interpreted componentwise.}
 An useful tool for dealing with systems of linear inequalities is Farkas' Lemma, which gives a necessary and sufficient conditions for the feasibility of a linear system.
 There are multiple versions of Farkas' Lemma, each suited for different context, but all mathematically equivalent.
 We shall start with two versions with particularly nice interpretations.
@@ -32,11 +32,11 @@ One can show this version of Farkas' Lemma by applying the geometric version to 
   Exactly one of the following is true:
   \begin{itemize}
     \item There exists \(x \in \bF^n\) such that \(Ax = b\).
-    \item There exists \(y \in \bF^m\), \(y \geq 0\) such that \(yA = 0\) and \(y b < 0\).
+    \item There exists \(y \in \bF^m\) such that \(yA = 0\) and \(y b < 0\).
   \end{itemize}
 \end{lemma}
 
-That is, either the system \(Ax = b\) can be solved, or this system is incoherent in the sense that aggregating the equalities with positive weights \(y\) gives a contradiction: \(yb < 0 \leq yA\), which cannot be possible since inequalities can be aggregated with nonnegative weights, so that \(yA \leq yb\).
+That is, either the system \(Ax = b\) can be solved, or this system is incoherent in the sense that aggregating the equalities with weights \(y\) gives a contradiction: \(yb < 0 = yA\).
 
 \section{Specializing Farkas' Lemma for a No-Trade Theorem}
 We now develop a suitable form of Farkas' lemma that allows us to impose strict inequalities for subsets of constraints, as required by the acceptability property of a trade.
@@ -65,7 +65,7 @@ We now develop a suitable form of Farkas' lemma that allows us to impose strict 
   Then \(x \coloneq \sum_j x^j\) satisfies (i).
 \end{proof}
 
-We are now ready to prove the no-trade theorem (\Cref{thm:no-trade}), we which restate here for completeness:
+We are now ready to prove the no-trade theorem (\Cref{thm:no-trade}), which we restate here for completeness:
 \begin{theorem}
   There is no feasible and acceptable trade if and only if the interim beliefs \(\pi_i(\cdot \mid t_i)\) are consistent with a common prior.
 \end{theorem}
@@ -87,5 +87,4 @@ We are now ready to prove the no-trade theorem (\Cref{thm:no-trade}), we which r
   \]
   In this case, \(\tilde{\phi} / \sum \tilde{\phi}\) is a common prior.
 \end{proof}
-
 

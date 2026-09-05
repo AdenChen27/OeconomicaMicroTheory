@@ -30,7 +30,7 @@ In these cases, Receiver cannot form a proper posterior belief (what would you b
 This assumption rules out non-credible threats that deter the sender from deviating by threatening to hurt both players.
 
 Before analyzing Sender's strategy, let us consider a few candidate equilibria to gain more intuition.
-Observe first that a perfectly revealing equilibrium does not exist, for at each state \(\theta\), Sender has a profitable unilateral deviation from reporting the truth \(\theta\) to reporting \(\theta + b\), knowing Receiver would then choose action \(a = \theta + b\).
+Observe first that a perfectly revealing equilibrium does not exist, for at each state \(\theta\), Sender has a profitable unilateral deviation from reporting the truth \(\theta\) to reporting a slightly higher value, knowing Receiver would then implement the report.
 
 Thus consider the other extreme, a perfectly uninformative equilibrium, where Sender sends the same message independent of the state.
 Given Sender's strategy, Receiver would gain no information about the state from the message and thus choose action \(a = 1 / 2\), which is the prior mean of \(\theta\).
@@ -70,7 +70,7 @@ By the same argument as before, we see that this is an equilibrium if and only i
   % \quad \forall n = 1, \dots, N - 1.
 \]
 for each \(n = 1, \dots, N - 1\).
-Note from the last expression that each interval is longer than the one before it by \(2b\), so for fixed \(b\), the number of intervals \(N\) is bounded, with the largest possible \(N\) decreasing in \(b\).
+Note from the last expression that each interval is longer than the one before it by \(4b\), so for fixed \(b\), the number of intervals \(N\) is bounded, with the largest possible \(N\) decreasing in \(b\).
 As \(b\) gets smaller, partition equilibria with more cells becomes possible.
 This conforms to the intuition that as Sender and Receiver's preferences gets more aligned, more information can be conveyed.
 
@@ -164,7 +164,7 @@ We may now rephrase Sender's problem as
 \]
 This second statement of the problem leads to a particularly nice geometric interpretation of the problem:
 \begin{proposition}
-  Denote as \(\conv \hat{v}\) the convex hull of the graph of \(\hat{v}\), and let \(V(\mu) \coloneq \sup \{z: (\mu, z) \in \conv \hat{v}\) be the concave closure of \(\hat{v}\).
+  Denote as \(\conv \hat{v}\) the convex hull of the graph of \(\hat{v}\), and let \(V(\mu) \coloneq \sup \{z: (\mu, z) \in \conv \hat{v}\}\) be the concave closure of \(\hat{v}\).
   Then, Sender's highest ex ante utility is given by \(V(\mu_0)\).
 \end{proposition}
 \begin{proof}
@@ -173,5 +173,4 @@ This second statement of the problem leads to a particularly nice geometric inte
   Interpreting the weights as probabilities, we see that there is a distribution over these posteriors \(\tau\) that averages to \(\mu\).
   The corresponding information structure then gives the probability weighted payoffs \(z_i\), which is \(z\).
 \end{proof}
-
 

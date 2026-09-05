@@ -91,7 +91,7 @@ At \(\omega\), upon receiving her information given by \(\cP_i\), player \(i\) u
 \end{proposition}
 \begin{proof}
   Write \(P = (\cP_1 \land \cP_2)(\omega) = \cup_j P^j\) where \(P^j \in \cP_1\).
-  With the characterization of common knowledge above, we know that \(\pi(A \mid \cP^j) = p_1\) for each \(j\).
+  With the characterization of common knowledge above, we know that \(\pi(A \mid P^j) = p_1\) for each \(j\).
   Thus by the law of iterated expectation, \(\pi(A \mid P) = p_1\).
   A symmetric argument shows \(\pi(A|P) = p_2\).
 \end{proof}
@@ -154,7 +154,7 @@ If players coordinate on the action that doesn't match the state, each gets \(0\
 
 \subsection{The Complete Information Benchmark}
 Let's first consider what players would do if the state were common knowledge.
-In this case, upon knowing the state to be \(\theta \in \{a, b\}\), it is as if the agents are both playing the complete information game \(G_\theta\), in which payoffs and are completely described by the payoffs in the coordination game under state \(\theta\).
+In this case, upon knowing the state to be \(\theta \in \{a, b\}\), it is as if the agents are both playing the complete information game \(G_\theta\), in which payoffs are completely described by the payoffs in the coordination game under state \(\theta\).
 In each state, there are two Nash equilibria: \((A, A)\) and \((B, B)\).
 In particular, successful coordination --- playing \((A, A)\) in \(a\) and \((B, B)\) in \(b\) --- is a Nash equilibrium.
 
@@ -162,7 +162,7 @@ In particular, successful coordination --- playing \((A, A)\) in \(a\) and \((B,
 \subsection{The Electronic Mail}
 Now suppose only agent \(1\) observes the state \(\theta \in \{a, b\}\).
 When she sees state \(b\), she immediately sends an email to agent \(2\).
-Upon receiving an email, each agent's computer is set up reply automatically with a confirmation.
+Upon receiving an email, each agent's computer is set up to reply automatically with a confirmation.
 Due to a technical difficulty, each message will be lost with a probability of \(\eps \in (0, 1)\) independently.
 Thus in state \(b\), agent \(1\) sends an email to \(2\), who sends a confirmation back to \(1\), who then confirms the confirmation, and so on until a message is eventually lost (this must happen since \(\eps > 0\)), at which point each agent's computer displays the number of messages sent by her machine, which we denote as \(T_i\).
 
@@ -188,7 +188,7 @@ It could be the case that the state is \(a\) and thus \(1\) did not send an emai
 These two cases happen with probabilities proportional to \(1 - p\) and \(p \eps\).
 To evaluate the payoffs of playing each action, agent \(2\) still needs to know what agent \(1\) would do.
 In the first case (\(T_1 = 0\), state \(a\)), we have assumed that agent \(1\) would play \(A\).
-In the second case (\(T_1 = 1\)), it is much harder to say what agent \(1\) would do since that depends on what agent \(2\) would do at \(T_1 = 1\), which is what we are trying to figure out.
+In the second case (\(T_1 = 1\)), it is much harder to say what agent \(1\) would do since that depends on what agent \(2\) would do at \(T_2 = 1\), which is what we are trying to figure out.
 However, note that when player \(2\) plays \(A\), her payoff does not depend on what player \(1\) does, and when she plays \(B\), we can bound her payoff.
 This gives the following payoff matrix:
 \[
@@ -205,7 +205,7 @@ Since \(1 - p - p \eps > 0\), one can easily show that
   > -(1 - p)L + p \eps M
   \geq \text{ Payoff from playing \(B\)},
 \]
-so player \(2\) should play \(A\) at \(T_2 = 1\).
+so player \(2\) should play \(A\) at \(T_2 = 0\).
 
 We can repeat this argument for higher values of \(T_i\), only this time the probabilities and payoffs are slightly different.
 Let's illustrate with agent \(1\)'s decision.
@@ -230,7 +230,6 @@ We have now shown the following
 
 It is in this sense that ``almost common knowledge'' does not approximate common knowledge: conditional on coordination at state \(a\), with each \(\eps > 0\) the agents will not coordinate at \(b\) after arbitrarily many messages, even when they both know the state is \(b\).
 At the limit \(\eps = 0\), however, successful coordination at each state becomes possible.
-
 
 
 
