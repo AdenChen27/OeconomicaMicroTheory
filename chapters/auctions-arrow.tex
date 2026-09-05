@@ -1,0 +1,545 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[a4paper, total={6in, 8.5in}]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage{framed}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{setspace}
+\usepackage{subcaption}
+\usepackage{varioref}
+\usepackage{tikz}
+\usepackage[shortlabels]{enumitem}
+\usepackage{xcolor}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage{graphics}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage{mathdots}
+\usepackage{dsfont}
+\usepackage{cancel}
+\usepackage{minted}
+\setminted{fontsize=\footnotesize}
+\usepackage{bbm}
+
+\newcommand\ItemImage[2][]{%
+    \hfill\raisebox{\dimexpr-\height+\baselineskip}{\includegraphics[#1]{#2}}\hfill~}
+\title{Micro Theory Notes}
+\author{2026-27}
+\date{For Oeconomica's Micro Theory Cohort}
+
+
+\newcommand{\x}{x^*}
+\newcommand{\y}{y^*}
+\newcommand{\W}{W^*}
+\newcommand{\M}{M^*}
+\renewcommand{\a}{\alpha}
+\renewcommand{\b}{\beta}
+\newcommand{\bgt}{p_xx+p_yy=m}
+\newcommand{\bg}{p_xx+p_yy}
+\newcommand{\mbg}{m-p_xx-p_yy}
+\newcommand{\xom}{x^M_1}
+\newcommand{\xtm}{x^M_2}
+\newcommand{\xrm}{x^M_3}
+\newcommand{\xoh}{x^H_1}
+\newcommand{\xth}{x^H_2}
+\newcommand{\p}{\rho}
+\newcommand{\U}{\overline{U}}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\e}{\varepsilon}
+\renewcommand{\l}{\lambda}
+\newcommand{\bm}{b_M}
+\newcommand{\cm}{c_M}
+\newcommand{\mx}{\text{max}_{x,y}}
+\newcommand{\mn}{\text{min}_{x,y}}
+\newcommand{\del}{\partial}
+\newcommand{\pv}{\mathbf{p}}
+\newcommand{\xv}{\mathbf{x}}
+\newcommand{\lag}{\mathcal{L}}
+\newcommand{\s}{\sigma}
+\newcommand{\wv}{\boldsymbol{\omega}}
+\newcommand{\w}{\omega}
+\newcommand{\bbR}{\mathbb{R}}
+\newcommand{\xo}{x_1^*}
+\newcommand{\xt}{x_2^*}
+\newcommand{\dotp}{\boldsymbol{\cdot}}
+\newcommand{\ev}{\mathbf{e}}
+\newcommand{\zv}{\mathbf{z}}
+\newcommand{\dv}{\mathbf{d}}
+\newcommand{\yv}{\mathbf{y}}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbQ}{\mathbb{Q}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\bbP}{\mathbb{P}}
+\newcommand{\bbE}{\mathbb{E}}
+\newcommand{\bbV}{\mathbb{V}}
+\renewcommand{\mod}{\text{mod }}
+
+
+\newtheorem{theorem}{Theorem}
+\newtheorem*{theorem1*}{Theorem 1}
+\newtheorem*{theorem2*}{Theorem 2}
+\newtheorem*{theorem3*}{Theorem 3}
+\newtheorem*{theorem5*}{Theorem 5}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\newtcolorbox{qbox}{
+    colback=gray!10, % Sets the background color to a light gray
+    colframe=gray!80, % Sets the frame/border color to a darker gray
+    boxrule=0.7pt, % Sets the thickness of the box border
+    arc=0mm, % Rounds the corners of the box
+    boxsep=2pt, % Sets the distance between the border and the inner content
+    left=5mm, % Adds extra space to the left side
+    right=5mm, % Adds extra space to the right side
+}
+
+\newtcolorbox{abox}{
+    colback=gray!0, % Sets the background color to a light gray
+    colframe=gray!80, % Sets the frame/border color to a darker gray
+    boxrule=0.7pt, % Sets the thickness of the box border
+    arc=0mm, % Rounds the corners of the box
+    boxsep=2pt, % Sets the distance between the border and the inner content
+    left=5mm, % Adds extra space to the left side
+    right=5mm, % Adds extra space to the right side
+    breakable=true,
+}
+
+%======================================================================
+%  ADDITIONS FOR THE AUCTION THEORY SECTION
+%  (everything below is new; nothing above is modified)
+%======================================================================
+\usetikzlibrary{decorations.pathreplacing}   % for the brace in the 2nd-price figure
+
+\definecolor{keyblue}{RGB}{30,80,140}
+\definecolor{accent}{RGB}{150,40,40}
+
+\newcommand{\vbar}{\bar{v}}
+\newcommand{\eqdef}{\coloneqq}                % mathtools is already loaded
+
+% Extra theorem-like environments. corollary/example/remark reuse the existing
+% `theorem` counter; exercise gets its own. Styles are set only for the new
+% environments, so your theorem/definition/proposition appearance is unchanged.
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\theoremstyle{plain}                          % restore default for anything later
+
+% "Key idea" callout, styled to match qbox/abox
+\newtcolorbox{keybox}{
+    colback=keyblue!5,
+    colframe=keyblue!70,
+    boxrule=0.7pt,
+    arc=0mm,
+    boxsep=2pt,
+    left=5mm,
+    right=5mm,
+    breakable=true,
+}
+%======================================================================
+
+\begin{document}
+
+\onehalfspacing
+
+\maketitle
+
+%======================================================================
+\section{Auction Theory}
+%======================================================================
+
+Auctions deserve to be studied for two reasons. Firstly, they are interesting and ubiquitous enough in their own right; and secondly, they are a gateway into a highly general branch of game theory known as \textit{Bayesian games}. Roughly speaking, Bayesian games are models of incomplete information and how we can behave optimally when we have perfect information about ourselves, but not about other people. They are a much more realistic way to model real-world interactions.
+
+We'll have the time to go through two kinds of auctions: the \emph{first-price} and \emph{second-price}
+auctions. They are, for the most part, similar in their setup, but with minor tweaks that make them interesting enough to separate. We'll think about how each bidder should play in these two kinds of auctions, and as an aside, talk about how much the auctioneer expects to win too.
+
+\subsection{Formal Setup}\label{sec:model}
+
+Let's get concrete with the general setup, and formalize an auction as a game.
+
+\begin{itemize}[nosep]
+  \item Suppose there is one \textbf{object} being auctioned off -- let's say it's a trading card -- and $N$ bidders, labeled by $i=1,2,\dots,N$. These $N$ bidders are the \textit{players} in the game.
+  \item Each bidder $i$ gets some \textbf{value} $v_i \ge 0$ out of owning the trading card. For concreteness, let's think of these values in currency terms: for bidder $i$, $v_i$ is the largest amount of money she'd be willing to pay to get the card.
+  \item Each bidder has a payoff function that depends on whether or not she gets the card, and how much she pays for it. If bidder $i$ gets the card for a price $p$, her payoff is $u_i=v_i-p$. If she doesn't get the card, her payoff is zero because she doesn't pay for it. Each bidder wants to maximize her payoff, or some variant thereof.
+  \item Here's where the incomplete information part comes in. Each bidder knows, for sure, her own value $v_i$, but does not know the values of $v_j$ for any $j \neq i$. However, every bidder shares the prior belief that all of the bidders' values are drawn from some joint probability distribution over $N$-dimensional vectors, with probability density function $f$.
+\end{itemize}
+
+\noindent It's worth it to expose what that last point says, and more importantly, what it means for the game. A priori, no bidder can tell you how much another bidder values the trading card. However, for each vector $\mathbf v \in \bbR^N$, every bidder can tell you the \textit{likelihood} that the vector of bidders' values is equal to $\mathbf v$ -- this is just $f(\mathbf v)$.\footnote{It's more mathematically precise to say that for (pretty much) any \textit{subset} $A \subseteq \bbR^N$, every bidder will be able to tell you the probability that the vector of bidders values lies in $A$. This is given by $\int_{\mathbf v \in A} f(\mathbf v) \text{ d}\mathbf v$.}
+
+However, once bidder $i$ knows her own value $v_i$, she is able to calculate the density function $f_{-i}$ of the other $N-1$ bidders' values, given by $$f_{-i}(\mathbf v_{-i})=\dfrac{f(\mathbf v)}{f_i(v_i)} \quad \text{where } \mathbf v \text{ is the vector that joins } \mathbf v_{-i} \text{ and } v_i.$$ Here, $f_i$ is the marginal distribution function for bidder $i$'s value.
+
+For the rest of these notes, we're going to make a strong simplifying assumption about $f$ -- we'll assume that for each $i \in \{1,2,\dots,N\}$, bidder $i$ believes that every other bidder's value is an independent draw from the same distribution $g$. This means that from bidder $i$'s perspective, every other bidder has the same distribution over values, and knowing one bidder's value tells her nothing about another bidder's value. We can prove all the theorems below using weaker assumptions -- but this one makes them easier while still exposing the basic intuitions well enough.
+
+\subsection{Second-Price Auctions: `Honesty is the Best Policy'}\label{sec:second}
+
+We start with the second-price auction (2PA) because it turns out to have a very elegant solution.
+
+A second-price auction works like this: each bidder $i$ secretly writes down a `bid' $b_i$. The auctioneer collects the bids. The object (trading card) is given to the bidder with the highest bid,\footnote{In the case of a tie, the object will randomly be given to one of the bidders with the highest bid. This won't end up mattering.} and this bidder will pay not her own bid, but the second-highest bid. To reiterate: the winning bidder will \textit{not} have to pay $b_i$ -- she will have to pay the highest bid that is not $b_i$.
+
+To add to the formal setup we just established, you should think of $b_i$ as player $i$'s action or strategy. The collection of all bids $(b_1,\dots,b_N)$ is the \textit{action profile}.
+
+\subsubsection{Reminder: Dominant Strategies}
+
+Here's a refresher of a useful game theory definition.
+
+\begin{definition}[Weakly dominant strategy]
+A strategy $b_i^*$ is \textbf{weakly dominant} for player $i$ if, for all other strategies $b_i$ and all other players' possible strategies $b_{-i}$, $u_i(b_i^*, b_{-i}) \geq u_i(b_i,b_{-i})$.
+\end{definition}
+
+\noindent What this means in words is that $b_i^*$ is a weakly dominant strategy if, no matter what the other players choose to play, player $i$ cannot expect to be better off than she would be playing $b_i^*$.
+
+This is, in some sense, the best possible scenario. If bidder $i$ has a dominant strategy, that means she doesn't need to think about the other bidders' strategies at all. She should just play it, because she will never be strictly better off playing anything else.
+
+Now for the big theorem about second-price auctions.
+
+\begin{theorem}[Strategy-Proofness of 2PAs]\label{thm:vickrey}
+In a second-price auction, bidding $b_i^*=v_i$ is a weakly dominant strategy for every player $i$.
+\end{theorem}
+
+\begin{proof}
+Consider a generic bidder $i$ with value $v_i$, and let
+\[
+  m \equiv \max_{j \ne i} b_j
+\]
+be the highest bid submitted by someone who isn't bidder $i$. We'd like to show that for bidder $i$, bidding $b_i^*=v_i$ is at least as good as any other bid $b_i$ that she could make, no matter what the value of $m$ is.
+
+We compare this strategy to the other two possible options.
+
+\medskip
+\noindent\emph{Bidding above value ($b_i > v_i$).} Let's break into cases.
+\begin{itemize}[nosep]
+    \item $m \geq b_i$ -- this case doesn't matter because someone has bid at least as high as bidder $i$, so whether bidder $i$ bids $b_i$ or $v_i$, she gets payoff zero.
+    \item $m \leq v_i$ -- in this case, $b_i > m$, so bidder $i$ wins. But here, her payoff is $u_i=v_i-m$. If she bids $b_i=v_i$, her payoff is unchanged. $b_i^*=v_i$ weakly dominates.
+    \item $v_i<m<b_i$ -- again, bidder $i$ wins, but with payoff $v_i-b_i<0$. If she bids $b_i=v_i$, she loses, but gets payoff zero. $b_i^*=v_i$ dominates.
+\end{itemize} So, overbidding never helps.
+
+\medskip
+\noindent\emph{Bidding below value ($b_i < v_i$).} Let's break into cases.
+\begin{itemize}[nosep]
+    \item $m \geq v_i$ -- again this case doesn't matter because someone has bid more than bidder $i$, so whether bidder $i$ bids $b_i$ or $v_i$, she gets payoff zero.
+    \item $m \leq b_i$ -- in this case, bidder $i$ wins. But here, her payoff is $u_i=v_i-m$. If she bids $b_i=v_i$, her payoff is unchanged. $b_i^*=v_i$ weakly dominates.
+    \item $b_i<m<v_i$ -- here bidder $i$ loses, with payoff $0$. If she bids $b_i=v_i$, she wins, and gets payoff $v_i-m>0$. $b_i^*=v_i$ dominates.
+\end{itemize} So, underbidding never helps.
+
+\medskip
+Since neither raising nor lowering her bid can ever do better than bidding $v_i$,
+truthful bidding is weakly dominant.
+\end{proof}
+
+\begin{remark}
+Notice what the proof did \emph{not} use: nothing about $F$, about how many rivals there are, or about how they bid. That's why a dominant strategy is such a powerful concept. It also means a bidder needs no probability theory and no beliefs about
+opponents. To sum up: if your friend is bad at probability, tell them to enter a second-price auction and just be themselves.
+\end{remark}
+
+Second-price auctions contain this nice property we call `strategy-proofness'. This is just another way to say that optimal play in a second-price auction is to truthfully report their value. From a normative perspective, we might consider an auction unfair if someone could win it by lying -- this would encourage the behavior of lying. Another nice corollary of second-price auctions under optimal play that make them good:
+
+\begin{corollary}[Efficiency]
+Because every bidder bids their true value, the bidder who values the object most
+submits the highest bid and wins. The second-price auction is \textbf{efficient}:
+the object always ends up with the person who wants it most.
+\end{corollary}
+
+\subsection{First-Price Auctions and Bayesian Equilibria}\label{sec:first}
+
+Take second-price auctions, and change one rule: the winner pays their \emph{own} bid rather than the second-highest bid. That's a first-price auction (1PA). It's clear that suddenly, truthful bidding becomes a worse idea. If you bid your value and win, your payoff is zero; you've won the trading card, but captured none of the surplus. You might as well have lost. To make any money you must undercut (or `shade') your value a little bit in your bid.
+
+The question now becomes: how far do you undercut? If you shade too little, you retain less surplus when you win; but if you shade too much, you probably won't win at all. The right amount now depends on how the other bidders bid, something that wasn't the case in a 2PA. Dominant strategies have vanished. We need a new solution concept.
+
+\subsubsection{Games of Incomplete Information}
+
+The important part here is that each bidder holds \emph{private information} (how much they value the object) -- private in the sense that the other bidders don't know it precisely -- so this is a game of \textit{incomplete information}.
+
+The way we think about games of incomplete information is very different from the way we think about games where there are no information frictions. The most common model, due to John Harsanyi, assigns to each bidder something called a \textbf{type}. In the case of auctions, `type' is just a stand-in for $v_i$, the value the bidder ascribes to the object. More generally, a `type' is a catch-all term to refer to some information a bidder knows about herself, but that other bidders do not know about her. Additionally, a bidder's `strategy' is no longer just one bid $b_i$, but rather a plan that maps each possible bidder type $v_i$ to a bid $b_i(v_i)$. To be more formal:
+
+\begin{definition}[Bayesian Game Strategy]
+A \textbf{strategy} for bidder $i$ is a function
+\[
+  b_i : [0, \vbar] \longrightarrow \bbR_{+}, \qquad v_i \longmapsto b_i(v_i),
+\]
+specifying the bid $b_i(v_i)$ she would submit for each possible value $v_i$. We will call $b_i(\cdot)$ a \textbf{bidding function}.
+\end{definition}
+
+Because a bidder does not know rivals' values, she cannot compute her exact payoff from a given bid. But she does know the distribution over all the other bidders values (remember: each bidder believes that each other bidder's value is drawn from a distribution with density function $g$). So, what she \emph{can} compute is her \textbf{expected payoff}. Rational bidders maximize $\bbE[u_i]$ in this case, not just $u_i$.
+
+\begin{definition}[Bayesian Nash equilibrium]\label{def:bne}
+A profile of bidding functions $(b_1, \dots, b_N)$ is a \textbf{Bayesian Nash
+equilibrium} (BNE) if, for every bidder $i$ and every possible value $v_i$ and every other bidding function $\hat b_i$, $\bbE[u_i(b_i,b_{-i})] \geq \bbE[u_i(\hat b_i,b_{-i})]$.
+\end{definition}
+
+In other words, in equilibrium no bidder can expect to obtain a higher payoff by unilaterally changing her bidding function. This is very consistent with the usual notion of a Nash equilibrium, just with the addition of some fun probability theory.
+
+\subsubsection{Symmetry}
+
+We'd ultimately like to answer the question: ``is there a Bayesian Nash equilibrium given our auction setup?'' Answering this question in general is usually hard and expensive, because in theory we would have to search over every possible collection of $N$ functions. So the first step with a model like this is often to ask if we can search over a simpler, smaller space. In this case, it turns out we can.
+
+One thing that's nice about our setup is that the bidders are basically fully interchangeable: each one has the same distribution $g$ over her values. Therefore, we're going to look for a \textbf{symmetric} equilibrium,
+in which every bidder uses the \emph{same} bidding function $b_1(\cdot)=b_2(\cdot)=\dots=b_N(\cdot)\equiv b(\cdot)$. We will also only search over the collection of functions $b$ that are strictly increasing and have one derivative. As a reminder, `strictly increasing' means that if $v_A > v_B$, $b(v_A)>b(v_B)$.
+
+A strictly increasing, symmetric rule has a very useful consequence: the bidder with the highest \emph{value} submits the highest \emph{bid}, and therefore wins.
+So, just like the second-price auction, the first-price auction will turn out to be efficient, even if nobody bids her true value.
+
+\subsection{Solving the First-Price Auction}\label{sec:solve}
+
+Solving the first-price auction is harder than the second-price one, so we build it up in a bunch of steps.
+
+\subsubsection{Setting Up the Bidder's Problem}
+
+Suppose all rivals use the increasing bidding function $b(\cdot)$, and consider bidder $i$. The neatest way that I've seen to solve this problem is to use a trick -- this makes the intuition easier to follow, but the setup harder to follow.
+
+Let's suppose that bidder $i$ chooses a value $z_i$ that she `imitates', in the sense that when given value $v_i$, she will bid $b(z_i)$. Our question now is not ``which $b(\cdot)$ is best?'', but rather ``which $z_i$ is best?'' This is a much easier question: instead of searching over functions (complicated), we're searching over values (simple). Obviously, if $b(\cdot)$ is an optimal strategy in equilibrium, the best choice of $z_i$ for bidder $i$ to imitate is $z_i = v_i$.\\
+
+\noindent
+\textbf{Probability of winning.} Our bidder wins if her bid $b(z_i)$ beats all $N-1$ rivals. Since everyone uses the increasing rule $b$, beating a rival's bid is the same as that rival having a value below $z_i$. Let $G$ be the cumulative distribution function associated with $g$ (i.e. $G(x^*)=\int_{-\infty}^{x^*} g(x) \text{ d}x$) -- then the probability that each rival is below $z_i$ is $G(z_i)$, and rivals are independent, so
+\[
+  \bbP(\text{player } i \text{ wins} \mid  z_i) \;=\; G(z_i)^{\,N-1}.
+\]
+
+\noindent
+\textbf{Expected payoff.} If our bidder wins they pay their own bid $b(z_i)$ and earn $v_i - b(z_i)$; if they lose they earn $0$. Hence the expected payoff from imitating value $z_i$, when one's true value is $v_i$, is
+\begin{equation}\label{eq:U}
+  \bbE[u_i] \;=\; \big(v_i - b(z_i)\big) \cdot G(z_i)^{N-1}.
+\end{equation}
+
+The two factors in this product should give you intuition for the trade-off: raising $z_i$ lifts the win probability $G(z_i)^{N-1}$ ($G$ is, by definition, an increasing function), but it shrinks the surplus $v_i - b(z_i)$.
+
+\subsubsection{First-Order Conditions}
+
+We initially assumed that $b(\cdot)$ was an equilibrium bidding function. If it is, then bidder $i$ cannot do better than to imitate herself: $z_i = v_i$ has to be the maximizer of \eqref{eq:U}.\footnote{This has nothing to do with the strategy-proofness of a second price auction; it just follows from the definition of $b$ being optimal.} Assuming an interior solution, the derivative of \eqref{eq:U} with respect to $z_i$ has to vanish at $z_i=v_i$.
+
+Differentiating and using the product rule,
+\[
+  \frac{\del \, \bbE[u_i]}{\del z_i}
+  = -\,b'(z_i)\,G(z_i)^{N-1}
+    + \big(v_i - b(z_i)\big)\,(N-1)\,G(z_i)^{N-2} g(z_i).
+\]
+Let's set this equal to zero and then substitute $z_i = v_i$. Since this has to hold for every possible value $v$, we can suppress the $i$ index:
+\begin{equation}\label{eq:foc}
+  b'(v)\,G(v)^{N-1}
+   + b(v)\,(N-1)\,G(v)^{N-2} g(v)
+  \;=\; v\,(N-1)\,G(v)^{N-2} g(v).
+\end{equation}
+
+If you stare at the left-hand side of \eqref{eq:foc} for a couple of seconds, it might look familiar. Doing some careful guessing (or $u$-substitution) will show you that the left-hand side is exactly the product rule spits out when you differentiate $b(v)\,G(v)^{N-1}$:
+\[
+  \frac{d}{dv}\!\left[\, b(v)\,G(v)^{N-1} \,\right]
+  = b'(v)\,G(v)^{N-1} + b(v)\,(N-1)\,G(v)^{N-2} g(v).
+\]
+So, recasting \eqref{eq:foc},
+\begin{equation}\label{eq:exact}
+  \frac{d}{dv}\!\left[\, b(v)\,G(v)^{N-1} \,\right]
+  \;=\; v\,(N-1)\,G(v)^{N-2} g(v).
+\end{equation}
+
+What we have here is kind of like a differential equation, but luckily it's a pretty easy one to solve; we just need to use the Fundamental Theorem of Calculus and integrate both sides from $0$ to $v$. That gives
+\[
+  b(v)\,G(v)^{N-1}-b(0)G(0)^{N-1} \;=\; \int_0^v t\,(N-1)\,G(t)^{N-2} g(t)\,dt,
+\]
+but we can cleverly deduce that $b(0)=0$, and therefore,
+\begin{keybox}
+\begin{equation}
+  b(v) \;=\; \frac{1}{G(v)^{N-1}} \int_0^v t\,(N-1)\,G(t)^{N-2} g(t)\,dt.
+\end{equation}
+\end{keybox}
+\noindent This is the explicit closed-form symmetric equilibrium bidding rule of the first-price auction.
+
+\subsubsection{The Uniform Case}
+
+The actual functional form of $b$ is not exactly easily interpretable. We see that as $G(v)$ rises, $b(v)$ decreases -- so if other bidders' values are more likely to be below $v$, bidder $i$'s bid when she has $v$ can be lowered to maximize her surplus. However, there's not much more we can say than that, so let's specialize. Suppose every bidder's value is uniformly distributed on $[0,1]$, so that $\vbar=1$, $G(v)=v$ and $g(v)=1$. Then
+\[
+  b(v)
+  = \frac{1}{v^{\,N-1}} \int_0^v t\,(N-1)\,t^{\,N-2}\,dt
+  = \frac{N-1}{v^{\,N-1}} \int_0^v t^{\,N-1}\,dt
+  = \frac{N-1}{v^{\,N-1}} \cdot \frac{v^{\,N}}{N},
+\]
+which gives $$b(v)=\dfrac{N-1}{N}v.$$
+
+\noindent
+Now this is an interpretable formula. Three things should stand out to you here. The first is that $\tfrac{N-1}{N}$ is always less than $1$, so $b(v)<v$ and every bidder bids below her value.
+
+The second is that the amount by which you undercut depends on how many people you're bidding against. With $N=2$ you bid half your value; with $N=5$ you bid $80\%$ of it; and as $N \to \infty$ the factor $\tfrac{N-1}{N}$ goes to $1$, so bids converge to true values. There's a natural interpretation here. The more people there are in the game, the more likely someone is to beat your bid -- so you undercut by less and less to compensate for the fact that that probability is increasing.
+
+The third one (and this is a consequence of the second) is that the winner's expected payoff is $\tfrac{1}{N}$, which vanishes as the number of bidders increases.
+
+\subsection{Revenue Equivalence}\label{sec:revenue}
+
+So far, we've only asked how the bidders should play. But put yourself into the shoes of the auctioneer for a second: which format should you choose? You might have an intuition about which way the answer leans, but I honestly didn't. It turns out that the true result is probably the least expected one: on average, they're exactly the same. We won't have the time to prove the general result (called the Revenue Equivalence Theorem), but we'll talk about it a little.
+
+\subsubsection{Order Statistics}
+
+To compute expected revenues, we need to know the expected sizes of the largest and second-largest of $N$ random values. For $N$ independent draws $v_1,\dots,v_N$ from the uniform distribution on $[0,1]$, the standard result is that the $k$-th smallest draw has expected value $k/(N+1)$ (which should align with your intuitions). In particular,
+\[
+  \bbE\left[\max_i v_i\right] = \frac{N}{N+1},
+  \qquad
+  \bbE\left[\max_i\left(\{v_1,\dots,v_N\}\ \setminus \ \{\max_j v_j\}\right)\right] = \frac{N-1}{N+1}.
+\] (Sorry -- that second formula is a weird way to say `second-highest'. Let me know if there's a nicer way).
+
+\subsubsection{Expected Revenues}
+
+\paragraph{Second-price auction.} In equilibrium, everyone bids truthfully, the highest-value bidder wins, and she pays the second-highest bid, which is the second-highest value. So expected revenue is just
+\[
+  R_2= \bbE[\text{second-highest of } N] = \frac{N-1}{N+1}.
+\]
+
+\paragraph{First-price auction.} In equilibrium, the highest-value bidder wins and she pays her own bid $b(v) = \tfrac{N-1}{N} v$, evaluated at the highest value. The expected highest value is $\tfrac{N}{N+1}$, so the expected revenue is
+\[
+  R_1
+  = \frac{N-1}{N+1} = R_2.
+\]
+
+\subsubsection{The General Revenue Equivalence Theorem}
+
+What we saw above is a special case of a much more general (and very cool) theorem:
+
+\begin{theorem}[Revenue Equivalence Theorem, informal]\label{thm:ret}
+Suppose values are independent private draws from the same continuous
+distribution and bidders are risk neutral. Then \emph{any} auction format in
+which
+\begin{enumerate}[label=(\roman*), nosep, topsep=3pt]
+  \item the object always goes to the bidder with the highest value, and
+  \item a bidder with the lowest possible value expects zero surplus,
+\end{enumerate}
+yields the seller the same expected revenue. In particular, the first-price and
+second-price auctions raise the same revenue on average.
+\end{theorem}
+
+For a formal discussion and a proof, see KC Border's notes.\footnote{\url{https://healy.econ.ohio-state.edu/kcb/AddedByPJ/RevenueEquivalence.pdf}} I suspect you will be able to understand them by the end of the quarter.
+
+\newpage
+
+\section{Social Choice Theory}
+ 
+Suppose you are the benevolent leader of a small town called Arrowville, with around 100 inhabitants. You'd like to take up a number of construction projects to improve the town. You have come up with five options: a school, a restaurant, a library, a sporting center, or a museum. You'd like to rank these five options from highest priority to lowest priority. Being a good leader, you naturally want to respect the opinions and wishes of the Arrowvillian people. Luckily, there are only so many of them -- so you will be able to solicit each individual resident's ranking of all five options in making your decision.
+ 
+Here's the catch: in order to ensure transparency and avoid arbitrariness in your decision rule, you must publicly state to the people, \textit{before soliciting their rankings}, how you will use those rankings to create your ranking. That is, you must announce, for every single possible collection of rankings you could solicit from the people, the corresponding ranking you will create.
+ 
+This task is the focal point of social choice theory: coming up with transparent, non-arbitrary ways of aggregating a collection of individual preference orderings into one `social' preference ordering. We'll discuss the formalism very shortly, but as a quick spoiler: subject to some very natural restrictions that you'd like to place on your aggregation scheme, the task happens to be impossible.
+ 
+\subsection{Formal Setup}
+ 
+Suppose there are $N \geq 1$ individuals indexed by $i=1,\dots,N$, and a set $X$ of `choices', often called a \textit{choice set} or \textit{policy space}. For now we'll assume $X$ is finite because it makes the math simpler.
+ 
+\begin{definition}
+    A \textsc{rational preference ordering} $\succeq$ is a relation on $X$ that is complete and transitive. That is, for any $x,y \in X$, either $y \succeq x$ or $x \succeq y$; and if $x \succeq y$ and $y \succeq z$, then $x \succeq z$. $\mathscr P(X)$ is the set of all preference orderings on $X$.
+\end{definition}
+ 
+ A preference ordering is our way of formalizing a reasonable `ranking' of the choices in $X$. $y \succeq x$ can be read as ``$y$ is ranked at least as high as $x$''. Note that this ranking allows for two choices to be ranked equally; if $y \succeq x$ \textit{and} $x \succeq y$, then $x$ and $y$ must have equal ranks, which case we write $x \sim y$. When $x \succeq y$ is true but $y \succeq x$ is not true, we write $x \succ y$ to show that $x$ is better than $y$, but strictly so.
+ 
+ Note that this is also a very general definition -- it only places two restrictions. The first one is that we must be able to compare any two choices, and the second is that we must follow the natural rule of ``if $A$ is better than $B$, which is better than $C$, then $A$ is better than $C$.''
+ 
+As mentioned above, social choice theory concerns itself with ways to combine individual rankings into a social ranking. This is done with a social choice function.
+ 
+\begin{definition}
+    A \textsc{social choice function} is a map $f:\mathscr P(X)^N \to \mathscr P(X)$, where $\mathscr P(X)^N$ represents the $N$-times Cartesian product of $\mathscr P(X)$.
+\end{definition}
+ 
+The domain of this function is just the set of all possible combinations of rankings that the individuals in Arrowville could have; and the codomain should be read as the set of social rankings. What $f$ does, intuitively, is take in $N$ people's individual preferences $\succeq_1,\succeq_2,\dots,\succeq_N$, and map them to a social preference $f(\succeq_1,\succeq_2,\dots,\succeq_N)$.
+ 
+\subsection{Arrow's Impossibility Theorem}
+ 
+The main results of social choice theory are negative results -- they state that there are no social choice functions that satisfy a bunch of conditions. The most famous one of these results is Arrow's impossibility theorem. We will work towards a proof of it slowly, first taking care to discuss the aforementioned conditions in detail.
+ 
+\begin{itemize}[nosep]
+    \item \textbf{Unrestricted Domain.} There is not much content to this condition -- it just says that the domain of $f$ needs to be all of $\mathscr P(X)^N$, not some subset thereof. In other words, your social choice functions needs to be consider every possible combination of rankings that the $N$ individuals could hold.
+    \item \textbf{Pareto Efficiency.} If $x \succeq_i y$ for all $i=1,\dots,N$, then $x \ f(\succeq_1,\dots,\succeq_N) \ y$. In words, this means: if everyone in society prefers $x$ to $y$, the social ranking should reflect that. It would be strange if everyone thought $x$ was at least as good as $y$, but the social ranking dictated that $y$ was better than $x$.
+    \item \textbf{Non-Dictatorship.} There does not exist $i \in \{1,\dots,N\}$ such that for all $(\succeq_1,\dots,\succeq_N) \in \mathscr P(X)^N$ and all $x,y \in X$, $x \succeq_i y \implies x \ f(\succeq_1,\dots,\succeq_N) \ y$. In words: there is no individual that completely dictates the social ranking. We might worry that the existence of an individual is a sign that the social choice rule is non-democratic.
+    \item \textbf{Independence of Irrelevant Alternatives (IIA).} This is the big one, and one that's important to understand correctly. It says that society's ranking of two alternatives $x$ and $y$ must depend \emph{only} on how the individuals rank $x$ against $y$, and on nothing else. Formally: if $(\succeq_1,\dots,\succeq_N)$ and $(\succeq_1',\dots,\succeq_N')$ are two profiles in which every individual ranks $x$ and $y$ the same way (that is, $x \succeq_i y \iff x \succeq_i' y$ for every $i$), then the two social rankings must also agree about $x$ versus $y$. In particular, where some third, ``irrelevant'' alternative $z$ sits in anybody's ranking is not allowed to change whether society puts $x$ above $y$.\\
+\end{itemize}
+
+\noindent
+Each of these four conditions looks, on its own, pretty natural and reasonable. However, Arrow's theorem tells us that we cannot have all four at once. Before we prove it, let's add little more notation and state a few assumptions to keep things less messy.
+ 
+We'll call a list $R = (\succeq_1,\dots,\succeq_N)$ of individual rankings a preference \textbf{profile}. Given a profile $R$, our social choice function $f$ returns a social ranking $f(R)$. To keep the notation light we write
+\[
+    x \succ_{f(R)} y \quad\text{for}\quad ``x \text{ is ranked strictly above } y \text{ in the social ranking } f(R)\text{,''}
+\]
+and we write $\succ_i$ for voter $i$'s own ranking. We'll also make two more assumptions:
+\begin{enumerate}[(i), nosep, topsep=3pt]
+    \item $|X| \ge 3$. That is, there are at least three alternatives.
+    \item Individual preferences are \emph{strict}: each $\succ_i$ is a strict ranking of $X$ from top to bottom and no one is indifferent between two options. The theorem holds true without this assumption, and the proof is more or less identical, but there are a few more pesky cases to work through that don't really add any more intuition.
+\end{enumerate}
+ 
+\begin{theorem}[Arrow's Impossibility Theorem]
+\label{thm:arrow}
+Suppose $|X| \ge 3$. Then every social choice function $f$ satisfying Unrestricted Domain, Pareto Efficiency, and Independence of Irrelevant Alternatives is \textbf{dictatorial}: there is a single individual $d$ such that, for \emph{every} profile $R$, the social ranking $f(R)$ is identical to $\succ_d$. Consequently, no $f$ can satisfy Unrestricted Domain, Pareto, IIA, and Non-Dictatorship simultaneously.
+\end{theorem}
+ 
+\subsubsection{Proof}
+ 
+Throughout, we'll say an alternative is \textbf{at the top} of a ranking if it's preferred to every other alternative, and \textbf{at the bottom} if every other alternative is preferred to it. We'll call it \textbf{extremal} in that ranking if it is at the top or at the bottom. We start with a lemma about extremal alternatives:
+ 
+\begin{lemma}[Extremal Lemma]
+\label{lem:extremal}
+Fix an alternative $b$ and a profile $R=(\succ_1,\dots,\succ_N)$. If, for all $i$, $b$ is extremal in $\succ_i$, then $b$ is extremal in $f(R)$.
+\end{lemma}
+ 
+\begin{proof}
+By contraposition. Suppose $b$ is not extremal -- then there is an alternative $a$ such that $a \succ_{f(R)} b$, and a different alternative $c$ such that $b \succ_{f(R)} c$. Consequently, $a \succ_{f(R)} c$ by transitivity -- see where $|X| \geq 3$ plays into this?
+ 
+Now let's modify the profile slightly into a new profile $R'$ as follows. For voter $1$, $b$ is extremal; without loss of generality assume it's at the top. Rearrange voter $1$'s ranking $\succ_1$ into $\succ_1'$, where $b$ is still at the top, but $c \succ_1' a$ (one way to do this is just swap $c$ and $a$ in the ranking). Do this for all the voters -- so that now, $c \succ_i' a$ for all $i$. Define $R'=(\succ_1',\dots,\succ_N')$.
+ 
+By IIA, since we haven't changed how $b$ relates to $a$ or $c$ for any individual voter, the social verdict on $\{a,b\}$ and on $\{b,c\}$ is unchanged from $f(R)$ to $f(R')$. We still have $a \succ_{f(R')} b \succ_{f(R')} c$; and thus, $a \succ_{f(R')} c$.
+
+We have arrived at an impossibility. For each individual voter we have $c \succ_i' a$; but also $a \succ_{f(R')} c$. By Pareto Efficiency this cannot happen. Therefore, it must be that $b$ is extremal.
+\end{proof}
+ 
+\noindent\textbf{Move 2: find the pivotal voter.}
+Start from any profile $R^{0}$ in which every voter puts $b$ dead last -- that is, $b$ is at the bottom of everyone's ranking. Since everyone prefers every other alternative $x$ to $b$, Pareto Efficiency means $b$ is at the bottom of the social ranking $f(R^0)$ too.
+ 
+Now, change voter $1$'s preferences as follows: take $b$ from the bottom, and move it up to the top to form a new profile $R^1$. $b$ is still extremal in each individual ranking, so it remains extremal in $f(R^1)$. Do this again for voter $2$, voter $3$, and so on until voter $N$ -- at each step, $b$ remains extremal in the social ranking. At this point, we have a new preference profile $R^N$ where $b$ is at the top of everyone's individual ranking. Therefore, by Pareto Efficiency, $b$ is at the top of $f(R^N)$.
+ 
+We started with $b$ at the bottom of $f(R^0)$; but by the end, we have $b$ at the top of $f(R^N)$. So at some point in between, $b$ must have switched from bottom to top. Let $d \in \{1,\dots,N\}$ be this time. That is, $b$ is at the bottom of $f(R^{d-1}), f(R^{d-2}),\dots,f(R^0)$; but $b$ is at the top of $f(R^d)$. We will call voter $d$ the pivotal voter.
+ 
+\medskip
+\noindent\textbf{Move 3a: $d$ dictates every pair not involving $b$.}
+Let $a$ and $c$ be any two alternatives, both different from $b$. We claim that for any ranking $\succ_d$, the social ranking always ranks $a$ against $c$ identically to $\succ_d$. Take an arbitrary profile $R$ and suppose voter $d$ ranks $a \succ_{d} c$ without loss of generality. Construct a second profile $R'$:
+\begin{itemize}[nosep, topsep=3pt]
+    \item voter $d$ ranks $a \succ_d' b \succ_d' c$ at the top of their ballot (that is, $a$ first, then $b$, then $c$, then the rest in any order) -- so we still have $a \succ_d' c$.
+    \item voters $1,\dots,d-1$ move $b$ to the top of their ranking, keeping all other comparisons the same;
+    \item voters $d+1,\dots,N$ move $b$ to the bottom, keeping all other comparisons the same.
+\end{itemize}
+We're going to claim that $a \succ_{f(R')} c$. To do this, let's use two comparisons:
+
+\begin{enumerate}[nosep]
+\item \emph{$\{a,b\}$.} In $R'$: voters $i=1,\dots,d-1$ have $b$ on top ($b \succ_i' a$); voter $d$ has $a \succ_d' b$; voters $j=d+1,\dots,N$ have $b$ on the bottom ($a \succ_j' b$). This is exactly the same as $R^{d-1}$ (there, voters $1,\dots,d-1$ have $b$ on top and voters $d,\dots,N$ have $b$ on the bottom). By IIA, since $a \succ_{f(R^{d-1})} b$, we must have $a \succ_{f(R')} b$.
+ 
+\item \emph{$\{b,c\}$.} In $R'$: voters $i=1,\dots,d-1$ have $b$ on top ($b \succ_i' c$); voter $d$ has $b \succ_d' c$; voters $j=d+1,\dots,N$ have $b$ on the bottom ($c \succ_j' b$). This is exactly the same as $R^d$ (therefore, voters $1,\dots,d$ have $b$ on top and voters $d+1,\dots,N$ have $b$ on the bottom). By IIA, since $b \succ_{f(R^d)} c$, we must have $b \succ_{f(R')} c$
+\end{enumerate}
+ 
+By transitivity, $a \succ_{f(R')} b \succ_{f(R')} c$, so $a \succ_{f(R')} c$. But since we didn't change how voters compared $a$ and $c$ between rankings $R=(\succ_1,\dots,\succ_d,\dots,\succ_N)$ and $R'$, we must have $a \succ_{f(R)} c$.
+ 
+So voter $d$ dictates every pair not involving $b$.
+ 
+\medskip
+\noindent\textbf{Move 3b: $d$ dictates the pairs involving $b$ too.}
+Fix an alternative $a \ne b$; we show $d$ also dictates the comparison of $\{a,b\}$. Because $|X| \ge 3$, pick a third distinct alternative. Repeat Moves 2 and 3a, but this time substituting $c$ in the place of $b$. This gives us a pivotal voter $\tilde d$ who dictates every pair not involving $c$ -- in particular, the pair $\{a,b\}$.
+
+We claim that $d=\tilde d$. Suppose not. Then, $\tilde d$'s ranking of $\{a,b\}$ is the same in $R^{d}$ and $R^{d-1}$ (because only voter $d$'s preferences changed), so society's ranking of $\{a,b\}$ must be the same in both. But $b$ was at the bottom of $f(R^{d-1})$, and at the top of $f(R^d)$. Therefore, $d = \tilde d$, and the two dictators have to be the same.
+
+Since voter $d$ dictates all pairs involving $b$, but also all pairs not involving $b$, she dictates \textit{every} pair -- and she's a dictator! Theorem proved.
+\qed
+ 
+\subsubsection{Next Steps}
+ 
+Arrow's Impossibility Theorem is, at first sight, a crazy one. It says that the only voting rule satisfying a bunch of good, reasonable, mild conditions is a dictatorship. The good thing about it, though, is that it narrows down what we'd have to give up to get something closer to a democratic voting system -- one of our other conditions. There are some ways to get around them:
+\begin{itemize}[nosep]
+    \item \textbf{Move from ordinal to cardinal.} Our entire setup involves rankings rather than scores -- this doesn't actually tell us how \textit{much} one voter likes option $a$ better than option $b$. If we allowed voters to score each option, say, on a scale of $1$ to $10$, we could come up with nice ways to aggregate these scores to obtain a sensible social choice function.
+    \item \textbf{Restrict the domain.} When we moved from one profile to another seamlessly we were implicitly relying heavily on the Unrestricted Domain assumption. You might think this is a bit unrealistic -- surely there are some profiles of preferences that would never come up in reality. It turns out that if we impose more structure on profiles, we can obtain a democratic social choice function.
+    \item \textbf{Shrink the output.} We wanted a full social \emph{ranking} -- but more often than not, we only care about the option that comes first. If we only want to pick a single winner, the analogous negative result is the Gibbard--Satterthwaite Theorem (so maybe this isn't the best way to attain democracy).\\
+\end{itemize}
+
+\noindent
+One thing I want to emphasize is the connection between auctions and what we've just gone through. In the case of auctions, we discovered a rule (a payment scheme) to elicit private information and produce a `desired' outcome, and we saw it could be done -- the second-price auction gets truthful bidding as a dominant strategy. In other words, we were able to design a system that forces optimal players to reveal their private information and accurately represent their value. Arrow's Impossibility Theorem is a negative result in this direction -- it tells us that we \textit{can't}, under certain conditions, design a system that results in non-dictatorship.
+
+These are two sides of the same coin. Both stories concern themselves with a question about designing a system -- or a ``mechanism'' -- that encourages players to behave in a particular way. This will be a theme throughout the result of this cohort, and we'll formalize it when we talk about mechanism design.
+\end{document}

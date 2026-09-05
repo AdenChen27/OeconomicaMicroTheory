@@ -1,0 +1,385 @@
+% !TeX root = ../main.tex
+\chapter{Contracts}
+\chapterauthor{Aden Chen}
+
+\mnote[-5em]{The problem of hidden action is called \vocab{moral hazard}, due to the term's initial use in the context of insurance problems, where one might worry that providing insurance gives incentives to being careless or irresponsible. The confusing terminology stuck, but its moral judgement has largely been stripped.}
+How should a contract be optimally designed when the relevant actions are not directly observable?
+More concretely, consider the problem of a firm (the principal) incentivizing a worker (the agent) to exert effort in their work.
+The agent's action is not observable and hence \vocab{noncontractable}.
+The principal thus has to write a contract specifying compensations to the worker based (say) on the agent's output, which is observed.
+\mnote[1em]{More precisely, something is contractable if it is verifiable by contract enforcing entity, typically the court.}
+
+To generate a nontrivial hidden action problem, outputs cannot perfectly reveal the agent's actions.
+We capture this with stochastic output with distribution determined by the action.
+Thus we write our base model as follows:
+\begin{itemize}
+  \item The principal announces a contract \(w: \bR_+ \to \bR\), which rewards the agent with a payoff of \(w(x)\) when her realized output is \(x\).
+  \item The agent decides whether to participate in the contract.
+    She gets utility normalized to \(0\) from her outside option if she rejects.
+  \item If the agent decides to participate in the contract, she chooses an action \((F, c) \in \cA\), where \(F \in \Delta \bR_+\) describes the stochastic output of the action and \(c \geq 0\) is the cost of the action.
+    The set \(\cA\) describes the technology available to the agent.
+  \item An output \(x\) with distribution \(F\) is realized, and the agent gets payoff \(w(x)\) from the contract.
+\end{itemize}
+
+Suppose the agent has utility function with monetary payoff and action cost additively separable, so that she has ex post utility \(u\big(w(x)\big) - c\) upon choosing \((F, c)\) and getting payoff \(w(x)\) from the contract.
+The principal is assumed to care only about the agent's output less the payment dictated by contract.
+For simplicity, we assume that the principal is risk neutral and thus has ex post utility \(x - w(x)\).
+The principal and the agent respectively maximize their ex ante expected utility, \(\E_F[x - w(x)]\) and \(\E_F\left[ u\big(w(x)\big) \right] - c\).
+
+We will first use this model to answer the hidden actions problem posed above following \textcite{holmstrom1979MoralHazard}.
+Then, following \textcite{carroll2015RobustnessLinear}, we will add an additional layer to the hidden actions problem, asking what the principal should do when they are not even sure what actions the agent has.
+
+\section{Hidden Actions}
+To see how hidden actions change the contracting problem, we will compare the optimal contract when the action is contractable (known as the \vocab{first-best} case) and is noncontractable (the \vocab{second-best} case).
+The symbols \(\tilde{w}\) and \(w\) are used respectively to denote contracts in the first- and second-best case.
+Thus in particular, \(w\) does not depend on the action \((F, c)\).
+
+First consider the second-best problem.
+Instead of thinking of the principal as choosing \(w\) while anticipating the agent to optimally choose an action, we can equivalently let the principal pick both a contract \(w\) and the agent's action \((F, c)\) subject to the constraint that it is in the agent's interest to choose \((F, c)\):\footnote{Strictly speaking, this should be a \(\sup\) that need not be attained without additional assumption. But since such existence problems don't contribute much to the economic understanding of this problem, we shall suppress the relevant technical discussion. In the same vein, we will sometimes refrain from explicitly stating, e.g., standard regularity assumption.}
+\begin{align*}
+  \max_{w, (F, c) \in \cA} \E_F[x - w(x)]
+  \quad\text{s.t.}\quad &\E_F\left[u\big(w(x)\big)\right] - c \geq 0, \\
+  &\E_F\left[u\big(w(x)\big)\right] - c \geq \E_{F'}\left[u\big(w(x)\big)\right] - c', \quad \forall (F', c') \in \cA.
+\end{align*}
+Here, the first constraint ensures that the agent participates in the contract, and the second constraint restricts \((F, c)\) to be the agent's best action given \(w\).
+These two constraints are respectively referred to as \vocab{individual rationality} (IR) and \vocab{incentive compatibility} (IC).
+
+Next, in the first-best problem, the action is contractable, so the principal can induce any action \((F^\star, c^\star) \in \cA\) she wants by (say) giving no compensation when any other action is chosen, provided that she gives enough reward to choosing \((F^\star, c^\star)\) that the agent is willing to participate (IR).
+A contract in this case is
+\begin{align*}
+  \tilde{w}\big(x, (F, c)\big)&: \bR_+ \times \cA \to \bR, \\
+  \tilde{w}\big(x, (F, c)\big) &\coloneq 0 \text{ if } (F, c) \neq (F^\star, c^\star),
+\end{align*}
+where the principal is left to choose \(w(\cdot) \coloneq \tilde{w}\big(\cdot, (F^\star, c^\star)\big): \bR_+ \to \bR\), the same object as the second-best case.
+The first-best problem can now be written as
+\begin{align*}
+  &\max_{w, (F^\star, c^\star) \in \cA} \E_{F^\star}\left[x - w(x)\right]
+  \quad \text{s.t.} \quad \E_{F^\star}\left[u\big(w(x)\big)\right] - c^\star \geq 0.
+\end{align*}
+Thus mathematically, the first-best problem is precisely the second-best problem without the IC constraint!
+
+% With the additional natural assumption that payoff has increasing utility but diminishing marginal utility to the agent, we have the following:
+% \begin{proposition}
+%   Suppose \(u' \geq 0\) and \(u'' \leq 0\).
+%   The first-best problem has the same value as the second-best problem without IC constraints:
+%   \begin{align*}
+%     \max_{\tilde{w}, (F, c) \in \cA} \E_F[x - \tilde{w}]
+%     \quad&\text{s.t.}\quad u(\tilde{w}) - c \geq 0 \\
+%     = \max_{w(x), (F, c) \in \cA} \E_F[x - w(x)] \quad&\text{s.t.}\quad \E_F[u(w(x))] - c \geq 0.
+%   \end{align*}
+% \end{proposition}
+% \begin{proof}
+%   Note that the LHS problem is simply the RHS problem with the additional constraint that \(w(x)\) be constant.
+%   It remains to argue that imposing this constraint does not change the value of the RHS problem.
+%   Let \(w(x), F, c\) attain the \(\max\) on the RHS and consider the constant contract \(\tilde{w}: \bR \to \bR\) satisfying
+%   \[
+%     u(\tilde{w})
+%     = \E_{F}\Big[u(w(x))\Big].
+%   \]
+%   This contract also satisfies the IR constraint of the RHS problem.
+%   But since \(u\) is weakly concave, we have from Jensen's inequality that \(\E_{F}[u(w(x)] \leq u(\E_{F}[w(x)]))\) and thus \(\tilde{w} \leq \E_{F}[w(x)]\), so \(\tilde{w}\) gives the principal weakly higher payoff. 
+% \end{proof}
+
+% That was perhaps a little abstract.
+Next, let us get more concrete and directly compare the first- and second-best \emph{outcomes}.
+We will first do this comparison under the additional simplifying assumption that the agent has a risk neutral utility function.
+Later, we will consider risk-averse agents; it is there that our preceding discussion about the structure of the two problems pays off.
+
+
+\subsection{Risk Neutral Agents}
+Let the agent have utility function \(u(x) \equiv x\).
+Observe that with any contract of the form \(w(x) = x + \beta\), where \(\beta\) is large enough to satisfy IR, the agent solves
+\[
+  \max_{(F, c) \in \cA} \E_F[x + \beta - c],
+\]
+which has the same solution as the first-best problem \(\max_{(F, c) \in \cA} \E_F[x - c]\).
+The principal optimally chooses the lowest \(\beta\) to barely induce the agent to participate, giving her a surplus of \(0\):
+\[
+  \beta^\star \coloneq -\left(\max_{(F, c) \in \cA} \E_F[x] - c \right) \leq 0.
+\]
+the inequality comes from assuming that the agent has an action generating higher expected payoff than it costs.
+
+Thus the principal can use \(w^\star(x) = x + \beta^\star\) to maximize total surplus while leaving the agent with \(0\) surplus.
+Since the first-best contract also have these two properties, we see that the principal attains her first-best payoff.
+Noting moreover that a second-best payoff can never be higher than the first-best payoff (since in the latter case, the principal has more information and hence more contracting power), we find that \(w^\star\) contract attains second-best.
+We summarize this finding in the following proposition:
+
+\begin{proposition}
+  When the agent has utility function \(u(x) = x\), the second-best payoff is identical to that of the first-best and is attained by the contract \(w^\star(x)\) defined above.
+\end{proposition}
+
+There is a natural economic interpretation of this contract: the principal sells her firm to the agent at a price of \(-\beta \geq 0\), and the agent gets to keep all of her output.
+
+% With this utility function, the first-best problem maximizes total surplus: \begin{align*}
+%   &\max_{(F, c) \in \cA} \E_F[x - c] \\
+%   &= \max_{\tilde{c}, (F, c) \in \cA} \E_F[x] - u(\tilde{c})
+%   \quad \text{s.t.} \quad \tilde{c} \geq c.
+% \end{align*}
+% Here, \(\tilde{c}\) is the compensation to the agent for choosing \((F, c)\).
+
+
+% \section{First Best}
+% Let us first consider the first best benchmark, where the agent's actions are perfectly observable and hence \vocab{contractable}.
+% In this case, the principal can induce any action \((F^\star, c^\star) \in \cA\) simply by severely penalizing other actions and rewarding \((F^\star, c^\star)\) with a payoff large enough so that the agent is willing to participate.
+% Thus we can think of the first best optimal contract problem as optimally (i.e., with the least cost) choosing agent's action to maximize profit:
+% \begin{equation}\label{eq:contract-FB}
+%   \max_{(F^\star, c^\star) \in \cA} \max_{\tilde{w}} \E_{F^\star}[x] - \tilde{w}(F^\star, c^\star)
+%   \quad \text{s.t.} \quad \tilde{w} \text{ makes Agent choose \((F^\star, c^\star)\)}.
+% \end{equation}
+% Here, we use \(\tilde{w}\) instead of \(w\) to emphasize the fact that the contract is based directly on the action \((F^\star, c^\star)\) instead of output.
+%
+% The constraint that the agent is induced to choose \((F^\star, c^\star)\) can be written as
+% \begin{align*}
+%   w(F^\star, c^\star) - c^\star &\geq 0, \\
+%   w(F^\star, c^\star) - c^\star &\geq w(F, c) - c, \quad \forall (F, c) \in \cA.
+% \end{align*}
+% The first line gives the agent incentive to participate, while the second ensures that she plays the desired action \((F^\star, c^\star)\).
+% For any \((F^\star, c^\star) \in \cA\), the inner \(\max\) in \eqref{eq:contract-FB} is attained by 
+% \[
+%   \tilde{w}(F, c)
+%   \coloneq \begin{cases}
+%     c^*, (F, c) = (F^\star, c^\star) \\
+%     \leq c, & \text{otherwise}
+%   \end{cases}.
+% \]
+% The first best solution is thus obtained by solving \(\max_{(F^\star, c^\star) \in \cA} \E_{F^\star}[x] - c^\star\).
+% From this expression we see that the first best outcome maximizes total surplus, all of which is taken by the principal.
+%
+% \subsection{Second Best with Risk Neutral Agent}
+% Now note that with an affine contract \(w(x) = x + `b\), where \(b\) is large enough to induce participation, the agent solves \(\max_{(F, c) \in \cA} \E_F[x + b] - c\), which has the same solution as the first best case.
+% With a risk neutral agent, the principal thus optimally sets \(b\) so that the agent is just incentivized to participate.
+% In this case, total surplus is maximized and the agent has a surplus of \(0\).
+% This being identical with the situation in the first best case, we see that the principal achieves first best payoff:
+% \begin{proposition}
+%   With an risk neutral agent, the first best and second best outcomes coincide.
+%   In particular, the agent chooses the same action and the principal gets the same payoff.
+% \end{proposition}
+
+
+\subsection{Risk Averse Agents}
+\mnote{The assumption that \(u\) is increasing and concave amounts to saying the payoff has positive but decreasing marginal utility for the agent.}
+Let us now consider the more general case, where the agent has a risk averse utility function \(u\) that is increasing and concave.
+We shall also impose more structure and assume that actions in \(\cA\) are parameterized by a one dimensional parameter \(a \in \bR\).
+Thus each action can be identified with an \(a\), as
+\[
+  \Big(F(\cdot \mid a), c(a)\Big) \in \cA.
+\]
+Let \(f(x \mid a)\) denote the density of \(F(\cdot \mid a)\).
+
+% Our previous characterization of the first-best outcome specializes to
+% \[
+%   \max_a \E_{F(\cdot \mid a)}[x] - u^{-1}\big(c(a)\big),
+% \]
+% which implies
+% \[
+%   c'(a) = \int x\,f_a(\cdot \mid a) \dd x.
+% \]
+
+As before, we can think of the optimal contract problem as optimally inducing the best action:
+\begin{align*}
+  &\max_{w(x), a^\star} \E_{F(\cdot \mid a^\star)}\Big[ x - w(x) \Big]
+  = \int \big[x - w(x)\big] \,f(x \mid a^\star) \dd x \\
+  &\quad\text{s.t.}\quad w \text{ induces the agent to choose \(a^\star\)}.
+\end{align*}
+The constraint can again be written more explicitly as
+\begin{align*}
+  \int u\big(w(x)\big) \,f(x \mid a^\star) \dd x - c(a^\star)
+  &\geq 0, \\
+  \int u\big(w(x)\big) \,f(x \mid a^\star) \dd x - c(a^\star)
+  &\geq \int u\big(w(x)\big) \,f(x \mid a) \dd x - c(a), \quad \forall a.
+\end{align*}
+The first and second line respectively ensures the agent participates (individual rationality, IR) and chooses the action desired by the principal (incentive compatibility, IC).
+
+We will now use the \vocab{first-order approach}, \emph{assuming} that only local deviations matter in the incentive compatibility constraint.
+This implies that choosing \(a^\star\) under \(w\) is locally optimal, thus at \(a = a^\star\),
+\mnote{Recall that \(f_a\) is a shorthand for \(\partial f / \partial a\).}
+\[
+  \frac{\partial}{\partial a} \left[ \int u\big(w(x)\big) \,f(x \mid a) \dd x - c(a) \right]
+  = 0
+  \implies
+  c'(a^\star)
+  = \int u\big(w(x)\big) \,f_a(x \mid a^\star) \dd x.
+\]
+
+We can now write the Lagrangian of the optimal contract problem with IC relaxed to local deviations as
+\begin{align*}
+  \cL
+  &= \int \big[x - w(x)\big] \,f(x\mid a^\star) \dd x
+  + \lambda \left( \int u\big(w(x)\big) \,f(x \mid a^\star) \dd x - c(a^\star) \right) \\
+  &\quad+ \mu \left( \int u\big(w(x)\big) \,f_a(x \mid a^\star) \dd x - c'(a^\star) \right) \\
+  &= \int \underbrace{\Big[ x - w(x) + \lambda u(w(x)) \Big]\, f(x \mid a^\star) + \mu u\big(w(x)\big) \,f_a(x \mid a^\star)}_{\eqcolon I(x; w)} \dd x - \mu c'(a^\star),
+\end{align*}
+where \(\lambda\) and \(\mu\) are respectively Lagrange multipliers for the IR and local IC constraints.
+
+Recall again that we are choosing an optimal contract, a function \(w\) of realized output \(x\).
+Thus at the optimum, the derivative of \(\cL\) with respect to perturbation of \(w(x)\) should be \(0\).
+Specifically, for any function \(h(x)\),\footnote{This is called a Gateaux derivative, analogous to directional derivatives in calculus.}
+\[
+  \left. \frac{\partial \cL\big( w + \eps h \big)}{\partial \eps} \right|_{\eps = 0}
+  = \int I'(x; w) h(x) \dd x
+  = 0,
+\]
+from which\footnote{Technically this equality holds almost everywhere.}
+\[
+  I'(x; w)
+  = -f(x \mid a^\star) + \lambda u'\big(w(x)\big) \,f(x \mid a^\star) + \mu u'\big(w(x)\big) \, f_a(x \mid a^\star)
+  = 0, \quad \forall x.
+\]
+We may rearrange to get the following formula, called a \vocab{Borch rule} since it generalizes a related condition derived by \textcite{borch1962EquilibriumReinsurance} on an earlier risk-sharing problem.
+\begin{proposition}
+  Assuming the first-order approach is valid, \(u' > 0\), and \(f(x \mid a^\star) > 0\), we have the following characterization of the optimal contract:
+  \[
+    \frac{1}{u'\big(w(x)\big)}
+    = \lambda + \mu\,\frac{f_a(x \mid a^\star)}{f(x \mid a^\star)}, \quad \forall x.
+  \]
+\end{proposition}
+\mnote[-5em]{We can apply \(x \mapsto u^{-1}(1 / x)\) to both sides and get an explicit expression for \(w\), but the characterization above is easy enough to work with and slightly easier to write.}
+
+In the formula above, the term \(f_a / f = \partial_a \log f\) can be interpreted as local evidence for higher \(a\): the larger is \(f_a / f\), the faster \(\log f(x | a)\) increases with \(a\) near \(a^\star\), and the more likely \(x\) is observed under higher \(a\).
+
+Let's compare this result with the first-best case.
+Recall from previous discussion is mathematically identical to the second-best problem without the IC constraint.
+Thus with the same analysis as above, we have that the first-best contract is described by
+\[
+  \tilde{w}\big(x, a\big)
+  = \begin{cases}
+    w^{\mathrm{FB}}(x), & a = a^\star \\
+    0, & \text{otherwise}
+  \end{cases},\qquad
+  \frac{1}{u'\big(w^{\mathrm{FB}}(x)\big)}
+  = \lambda^{\mathrm{FB}}.
+\]
+If marginal utility \(u'\) is strictly decreasing, then the display above implies that the optimal first-best contract is constant, offering full insurance to the agent.
+
+What about the second-best contract?
+With \(u\) is strictly increasing and concave, the function \(x \mapsto 1 / u'(x)\) is increasing and thus so is its inverse.
+It turns out that \(\mu \geq 0\),\footnote{
+  Denote \(s(x) \coloneq f_a(x \mid a^\star) / f(x \mid a^\star)\).
+  IC restricts the agent's marginal benefit from effort to be
+  \(
+    \int u\big(w(x)\big) f_a(x \mid a^\star) \dd x = c'(a^\star) > 0
+  \).
+  Note that the marginal benefit can also be written as
+  \[
+    \int u\big(w(x)\big) f_a(x \mid a^\star) \dd x
+    = \int u\big(w(x)\big) s(x) f(x \mid a^\star) \dd x
+    = \E\left[u\big(w(x)\big) s(x)\right]
+    = \Cov\left[ u\big(w(x)\big), s(x) \right],
+  \]
+  where the last equality follows from the fact that  
+  \[
+    \E[s(x)]
+    = \int \frac{f_a(x \mid a^\star)}{f(x \mid a^\star)} f(x \mid a^\star) \dd x
+    = \frac{\partial}{\partial a} \int f(x \mid a^\star) \dd x
+    = 0.
+  \]
+  Thus if \(\mu \leq 0\), then \(u(w(x))\) is decreasing in \(s(x)\) by Borch rule, and so \(\Cov\left[ u\big(w(x)\big), s(x) \right] \leq 0\), a contradiction.
+} so from the relevant Borch rule we see that \(w(x)\) is higher when \(f_a / f\) is higher, i.e., when there is stronger evidence that the agent exerted more effort.
+When action is noncontractable, the optimal contract rewards evidence of effort instead of output.
+
+So, is the first order approach actually valid?
+The answer is not always, as demonstrated by \textcite{mirrlees1999TheoryMoral}.
+In fact, it turns to be quite hard to obtain natural sufficient conditions for the validity of the first order approach.
+\textcite{barron2019ContractTheory} contains more detailed discussion that first introduced me to this issue.
+\Textcite{grossman1983AnalysisPrincipalAgent} presents an alternative analytic framework that avoids the first-order approach.
+
+\section{Robustness to Unknown Actions}
+Suppose now that not only are actions hidden and thus noncontractable, the principal is not even certain which actions are available to the agent.
+The principal knows that the agent's action set \(\cA\) includes at least a set of known actions \(\cA_0\), but possibly much more.
+A natural objective for the principal to maximize here is the \vocab{guarantee}, her minimum payoff under all \emph{possible} action spaces \(\cA \supset \cA_0\).
+To focus on the problem of unknown actions, we will again impose the simplifying assumption that the agent has a linear utility function \(u(x) \equiv x\), and also take away her outside option so she must always participate.
+To constrain the principal, we additional impose \vocab{limited liability}: payoffs to the agent cannot be negative.
+
+The specialized model can be summarized as follows:
+\begin{itemize}
+  \item The principal announces a contract \(w : \bR_+ \to \bR_+\) (note that the codomain encodes the limited liability restriction).
+  \item The agent chooses an action \((F, c) \in \cA \subset \Delta \bR_+ \times \bR_+\) and gets utility \(\E_F[w(x)] - c\).
+  \item With action space \(\cA\), the agent thus has utility
+    \[
+      V_A(w \mid \cA) \coloneq \max_{(F, c) \in \cA} \E_F[w(x)] - c.
+    \]
+    Similarly, let \(V_P(w \mid \cA) = \E_{F^\star}[x - w(x)]\) denote the principal's utility, where \((F^\star, c^\star)\) solves the agent's problem above.\footnote{When there are multiple solutions to the agent's problem, assume she breaks ties in favor of the principal.}
+  \item Knowing only \(\cA \supset \cA_0\), the principal maximizes the guarantee \(V_P(w) \coloneq \min_{\cA \supset \cA_0} V_P(w \mid \cA)\).
+\end{itemize}
+
+% It turns out that the guarantee is always maximized by a linear contract of the form \(w(x) = \alpha x\).
+% To develop some intuition, consider a linear contract of the form \(w(x) = \alpha x\).
+
+Let us first analyze a linear contract, which is a natural starting point since it induces the agent to care about what the principal cares about (output) in a way that is completely agnostic about actions.
+Note that for given output \(x\), the principal and agent get \((1 - \alpha) x\) and \(\alpha x\) under a linear contract \(w(x) = \alpha x\).
+This implies that their ex post payoffs are related via
+\[
+  x - w(x)
+  = \frac{1 - \alpha}{\alpha} w(x).
+\]
+Now observe that an action \((F, c)\) (possibly outside of \(\cA_0\)) might be chosen by the agent only if \(\E_F[w(x)] \geq V_A(w \mid \cA_0)\).
+For any such action, we thus have
+\[
+  \E_F[x - w(x)]
+  = \frac{1 - \alpha}{\alpha} \E_F[w(x)]
+  \geq \frac{1 - \alpha}{\alpha} V_A(w \mid \cA_0).
+\]
+Applying \(\min\) over all \((F, c)\) the agent might choose gives
+\[
+  V_P(w) \geq \frac{1 - \alpha}{\alpha} V_A(w \mid \cA_0).
+\]
+Thus if the agent can obtain a positive payoff with known actions, then the principal can guarantee a nontrivial payoff with a linear contract.
+
+It turns out that no other contract can give a higher guarantee, as shown by \textcite{carroll2015RobustnessLinear}.
+We will not reconstruct Carroll's complete argument (which is exceptionally clear and provides a great deal of intuition; go read it!), but only give a rough summary for some intuition.
+With any (perhaps nonlinear) contract \(w\), a clever use of a hyperplane separation theorem\footnote{
+  Since we want to derive a relation between the principal and agent's payoffs from the contract (i.e., without factoring in the agent's private cost), it is natural to consider the space of payoff profiles.
+  Fix \(w\) and let \(\cS \subset \bR^2\) be the set of all possible payoffs \(\left( \E_F[w(x)], \E_F[x - w(x)] \right)\) from some \(F \in \Delta \cX\), where \(\cX \in \bR\) is a compact set of all possible outputs.
+  Let \(\cT \subset \bR^2\) be the set of all payoff profiles \((u, v)\) where \(u  > V_A(w \mid \cA_0)\) and \(v < V_P(w)\).
+  The sets \(\cS\) and \(\sT\) are disjoint since \(v < V_P(w)\) implies that \((u, v)\) cannot be a payoff profile generated by any \((F, c)\) that might be taken by the agent; in particular, it cannot be generated by \((F, 0)\).
+  Thus a hyperplane separation theorem gives \(\lambda, \lambda, \mu\) such that
+  \begin{align*}
+    \kappa + \lambda u - \mu v &\leq 0 , \quad \forall (u, v) \in \cS, \\
+    \kappa + \lambda u - \mu v &\geq 0 , \quad \forall (u, v) \in \cT.
+  \end{align*}
+  One can then eliminate all possibilities but \(\lambda, \mu \geq 0\) and normalize \(\mu = 1\).
+} gives the existence of \(\kappa\) and \(\lambda > 0\) such that
+\mnote{Note the resemblance of these two formulas with what we derived in the case of linear contracts above.}
+\[
+  x - w(x) \geq \kappa + \lambda w(x), \quad
+  V_P(w) = \kappa + \lambda V_A(w \mid \cA_0).
+\]
+The formula on the left motivates considering the unique affine contract \(\tilde{w}(x) = \alpha x + \beta\) satisfying \(x - \tilde{w}(x) = \kappa + \lambda \tilde{w}(x)\).
+Now, we can apply the same argument we used in the analysis of linear contracts.
+For any \((F, c)\) that may potentially be chosen by the agent, \(\E_F[\tilde{w}(x)] \geq V_A(\tilde{w} \mid \cA_0)\), so
+\begin{align*}
+  \E_F[x - \tilde{w}(x)]
+  \geq \kappa + \lambda \E_F[\tilde{w}(x)]
+  &\geq \kappa + \lambda V_A(\tilde{w} \mid \cA_0) \\
+  &\geq \kappa + \lambda V_A(w \mid \cA_0)
+  = V_P(w).
+\end{align*}
+where the second line comes from noting that the agent's payoff weakly improves since \(\tilde{w} \geq w\).
+As before, this implies
+\[
+  V_P(\tilde{w})
+  \geq V_P(w),
+\]
+so the affine contract \(\tilde{w}\) weakly increases guarantee.
+
+Now, write \(\tilde{w}\) as \(\tilde{w} = \alpha x + \beta\) and note that \(\beta = \tilde{w}(0) \geq 0\), for payoffs are nonnegative.
+We can shift \(\tilde{w}\) uniformly downwards to \(w^\star \coloneq \alpha x\), which doesn't change the agent's incentives in choosing her action and weakly improves the principal's payoffs.
+
+We have now shown that the guarantee of any contract \(w\) can be improved upon with a linear contract, which implies\footnote{There is still the technical question of whether an optimal linear contract exists, but let's ignore that.} that linear contracts maximize the guarantee.
+In fact, one can show under additional assumptions that linear contracts are the only contracts that maximize the guarantee.
+This model thus provides a new story for the prevalence of linear contracts despite most theoretical models predicting otherwise: the modified Borch rule in general gives a highly nonlinear contract, whereas in the selling-the-firm case gives an affine contract with slope exactly one.
+The story is perhaps best told through Carroll's own words:
+
+\begin{displayquote}
+One way to try to explain [the prevalence of linear contracts] with our model would be to take the model literally, imagining that contract writers explicitly maximize a worst-case objective, are risk-neutral, and so on. A fuzzier story, but perhaps closer to the truth, is as follows. Just as economists work with stylized models for tractability, so, too, real-life decision makers may not be able to write down (or solve) their decision problems in full precision. They may therefore be content to adopt a solution that is guaranteed to perform reasonably well in a class of approximate models~\dots
+\end{displayquote}
+
+% Which assumptions are driving this result?
+% Apart from the uncertainty about \(\cA\), the limited liability assumption is also crucial.
+% Taking it away and the optimal solution becomes our previously derived selling the firm contract \(w(x) = x + \tilde{\beta}\) assuming the action space is \(\cA_0\).
+% To see this, note that with any \(\cA \supset \cA_0\), the 
+
+
+
+
+

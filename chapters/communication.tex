@@ -1,0 +1,177 @@
+% !TeX root = ../main.tex
+\chapter{Communication}
+
+\section{Cheap Talk}
+When will communication occur for strategic reasons?
+\mnote{It is the assumption that Sender can send arbitrary messages costlessly that makes this model \emph{cheap} talk.}
+Suppose an agent (the Sender) has access to some information and can costlessly send an arbitrary message to another agent (the Receiver), who then makes a decision.
+To what extent would the sender reveal her information?
+When Sender and Receiver has identical preferences, Sender would of course reveal all the information she has, so that Receiver can make an informed decision.
+When their preferences are completely opposed, Sender would not send any message (or she babbles), since any information will be used by the Receiver, for the Receiver, and thus against the Sender.
+But what would happen when Sender and Receiver has imperfectly aligned preferences?
+
+We will analyze this problem using the cheap talk game by \textcite{crawford1982StrategicInformation}, which can be summarized as follows:
+\begin{itemize}
+  \item The state \(\theta\) follows a uniform distribution on \([0, 1]\).
+  \item Sender and Receiver respectively has utility functions \(v(a, \theta) = -(a - \theta - b)^2\) and \(u(a, \theta) = -(a - \theta)^2\).
+    Thus Receiver tries to match the state, while Sender always prefers the action higher then the state by \(b > 0\), which represents her \underline{b}ias.
+  \item Sender observes state \(\theta\) and chooses a communication strategy \(\sigma: \Theta \to \Delta(M)\), where \(M\) is the set of possible messages.
+  \item Receiver observes the communication strategy \(\sigma\) and a resulting message \(m\), and then chooses an action \(\hat{a}(m)\).
+\end{itemize}
+
+Let's first consider Receiver's strategy for a fixed communication strategy \(\sigma\).
+Upon observing a message from Sender, Receiver forms a posterior belief about the state and chooses \(a\) to maximize her expected payoff:
+\[
+  a \in \argmax_{a \in A} \E\left[u(a, \theta) | M = m, \text{ where } M \sim \sigma(\cdot|\theta) \right].
+\]
+Because of the quadratic utility specification, her best action would simply be the posterior mean.
+However, to later check whether the sender has a profitable deviation, we also need to specify what Receiver would do upon observing a message that is never sent under \(\sigma\), an \vocab{off-path} message.
+In these cases, Receiver cannot form a proper posterior belief (what would you believe upon observing something that should never happen?), and we shall assume Receiver chooses one of the action that she would also choose for an on-path message.
+This assumption rules out non-credible threats that deter the sender from deviating by threatening to hurt both players.
+
+Before analyzing Sender's strategy, let us consider a few candidate equilibria to gain more intuition.
+Observe first that a perfectly revealing equilibrium does not exist, for at each state \(\theta\), Sender has a profitable unilateral deviation from reporting the truth \(\theta\) to reporting \(\theta + b\), knowing Receiver would then choose action \(a = \theta + b\).
+
+Thus consider the other extreme, a perfectly uninformative equilibrium, where Sender sends the same message independent of the state.
+Given Sender's strategy, Receiver would gain no information about the state from the message and thus choose action \(a = 1 / 2\), which is the prior mean of \(\theta\).
+Given our assumption that Receiver would still choose \(a = 1 / 2\) upon receiving any other message from the sender, Sender trivially has no incentive to deviate.
+Thus the perfectly uninformative equilibrium --- called a \vocab{babbling equilibrium} --- always exists.
+In this equilibrium, Sender babbles, and no information is conveyed.
+% To check whether this forms an equilibrium, we need to consider if sender has a profitable deviation, which depends on what the receiver would do upon seeing other signals.
+% One way to construct a uninformative Nash equilibrium is to make the receiver threaten to choose a really bad outcome when she sees an unexpected message, say \(a^\star \ll 0\), to deter the receiver from deviating.
+% But since \(\theta \in [0, 1]\), the receiver would never actually want to carry out this threat, which is thus in this sense non-credible.
+
+Perhaps the most natural intermediate case where only partial information is communicated is that of Sender sending a message telling the Receiver whether \(\theta\) exceeds some threshold, say \(\theta_1\).
+With this communication strategy and a uniform prior, Receiver would then choose \(a = (\theta_1 + 1) / 2\) if \(\theta\) exceeds the threshold and \(a = \theta_1 / 2\) otherwise.
+To ensure that Sender has no incentives to deviate, it is by continuity necessary for Sender to be indifferent between sending either message when she sees \(\theta_1\).
+This implies
+\[
+  v\left( \theta_1 / 2, \theta_1 \right)
+  = v\left( (\theta_1 + 1) / 2, \theta_1 \right)
+  \iff \frac{\theta_1 / 2 + (\theta_1 + 1) / 2}{2} = \theta_1 + b
+  \iff \theta_1 = \frac{1}{2} - 2b.
+\]
+The first equivalence is shown by noting that \(v(\cdot, \theta)\) is symmetric around \(\theta + b\).
+Since Sender's preferred action is increasing in \(\theta\), this is also a sufficient condition.
+Thus, if \(b < 1 / 4\), there exists an equilibrium where Sender reports whether \(\theta\) exceeds \(\theta_1 \coloneq 1 / 2 - 2b\).
+
+The equilibrium above can be termed a partition equilibrium with \(2\) cells.
+It turns out that all equilibria in this game are partitional.
+Given numbers
+\[
+  0 = \theta_0 < \theta_1 < \dots < \theta_N = 1,
+\]
+consider Sender's strategy of reporting \(m_n\) whenever \(\theta \in [\theta_{n - 1}, \theta_n]\).
+By the same argument as before, we see that this is an equilibrium if and only if
+\[
+  v\left( \frac{\theta_{n - 1} + \theta_n}{2}, \theta_n \right)
+  = v\left( \frac{\theta_n + \theta_{n + 1}}{2}, \theta_n \right)
+  \iff 4b = (\theta_{n + 1} - \theta_n) - (\theta_n - \theta_{n - 1})
+  % \quad \forall n = 1, \dots, N - 1.
+\]
+for each \(n = 1, \dots, N - 1\).
+Note from the last expression that each interval is longer than the one before it by \(2b\), so for fixed \(b\), the number of intervals \(N\) is bounded, with the largest possible \(N\) decreasing in \(b\).
+As \(b\) gets smaller, partition equilibria with more cells becomes possible.
+This conforms to the intuition that as Sender and Receiver's preferences gets more aligned, more information can be conveyed.
+
+
+\section{Bayesian Persuasion}
+\Textcite{kamenica2011BayesianPersuasion} asks what happens if Sender is given the power commitment, meaning that she chooses a communication strategy \emph{before} observing the information, and commits to it --- sticking with it even when it is in her interest to deviate after observing the state.
+This is in contrast to the cheap talk model, where we require Sender's disclosure policy to be optimal conditional on her information, no matter what information she might receive; that is, the policy must be \emph{interim} incentive compatible.
+With commitment, Sender optimizes purely from an ex ante standpoint, knowing that she will follow through.
+
+When is such an assumption realistic?
+An example is a grading or ranking system: an institution picks and makes public an evaluation procedure before collecting information and has to follow through.
+Sometimes, commitment is mandated by law, for instances when a prosecutor attempts to persuade a judge by choosing an investigation to be conducted and report its full outcome.
+
+But Sender can also be interpreted metaphorically, as Nature choosing what information about the state is available to Receiver.
+Solving for Sender's optimal disclosure policy then gives the best (according to Sender's preference) outcome achievable by varying Receiver's information, and by suitably picking Sender's preference, we can carefully probe the range of possible outcomes achievable under all potential information structures.
+
+Because of this second interpretation, Bayesian persuasion is also referred to as information design.
+Accordingly, let us switch terminology and call the messages signals, with signal space \(S\), and the communication strategy \(\pi : \Theta \to \Delta(S)\) an \vocab{information structure}.
+Note that we can equivalently represent \(\pi\) as a family of distributions over \(S\) indexed by \(\theta \in \Theta\), i.e., \(\{\pi(\cdot | \theta)\}_{\theta \in \Theta}\), or a joint distribution over \(\Theta \times S\), \(\pi \in \Delta(\Theta \times S)\).
+The last representation is perhaps most revealing of the fact that Receiver gains information by observing a signal that correlates with the state.
+
+Our new game can be summarized as follows:
+\begin{itemize}
+  \item There is a finite set of payoff-relevant states.
+  \item Sender and Receiver respectively have continuous utility functions \(v(a, \theta)\) and \(u(a, \theta)\), and share a common prior \(\mu_0 \in \Delta(\Theta)\) that puts strictly positive probability on each state.\footnote{
+      Under this assumption, function of the form \(\Theta \to \Delta(S)\) can be identified with elements in \(\Delta(\Theta \times S)\) with \(\Theta\)-marginal \(\mu_0\), and all posterior are well defined.
+      With \(\Theta\) finite, there is also no loss in making this assumption since we can always remove states with probability \(0\) from \(\Theta\).
+    }
+  \item Sender chooses an information structure \(\pi \in \Delta(\Theta \times S)\) for some signal space \(S\).
+  \item Receiver observes the information structure \(\pi\) and a signal realization \(s \in S\), and then chooses an action \(a \in A\) to maximize her expectation of \(u(a, \theta)\).
+\end{itemize}
+
+Let us again first fix an information structure \(\pi\) and a signal realization \(s\), and ask what Receiver would do.
+Upon observing \(s\), she updates her beliefs using Bayes' rule to \(\mu_s \in \Delta(\Theta)\), where
+\[
+  \mu_s(\theta)
+  \coloneq \frac{\pi(s | \theta) \mu_0(\theta)}{\sum_{\theta' \in \Theta} \pi(s | \theta') \mu_0(\theta')}, \quad \forall \theta.
+\]
+With this updated beliefs, she picks the action that maximizes her payoff
+\[
+  \hat{a}(\mu_s) \in \argmax_a \E_{\mu_s}[u(a, \theta)].
+\]
+We write Sender's expected payoff when Receiver has belief \(\mu\) as
+\[
+  \hat{v}(\mu) \coloneq \E_\mu[v(\hat{a}(\mu), \theta)].
+\]
+
+In particular, note that Receiver's action depends only on her posterior beliefs about the state.
+These beliefs are stochastic, since with the same \(\pi\), Receiver can observe potentially different random signals.
+The distribution of the beliefs, however, are completely determined by the information structure \(\pi\).
+Instead of choosing \(\pi\), let us thus think how Sender would choose a distribution over posteriors directly.
+Doing so is analytically convenient, since we no longer need to keep track of the space of signals \(S\).
+
+Write such a distribution as \(\tau \in \Delta(\Delta(\Theta))\), where we recall that \(\Delta(\Theta)\) is the space of beliefs over \(\Theta\).
+We would like to rephrase the problem as maximizing over \(\Delta(\Delta(\Theta))\), but not all elements in this space can be induced by some \(\pi\).
+For instance, it is not possible for Receiver to have a posterior mean higher than that of the prior after seeing every signal realization --- for if she knew she would have beliefs with higher means after getting \emph{any} information, she would have revised her beliefs upwards before getting the information.
+More generally, her expected posterior belief of a state must agree exactly with her prior belief of that state:
+\[
+  \E \tau(\theta)
+  = \mu_0(\theta), \quad \forall \theta \in \Theta.
+\]
+In other words, her expected posterior is her prior: \(\E \tau = \mu_0 \in \Delta(\Theta)\).
+We say \(\tau\) is \vocab{Bayes plausible} if the condition above is satisfied.
+
+It turns out that Bayes plausibility is the only restriction on \(\tau\):
+\begin{lemma}
+  \(\tau\) is Bayes plausible iff it can be induced by some information structure \(\pi\).
+\end{lemma}
+\begin{proof}
+  We have informally argued above for the only if direction.
+  Formally, note that
+  \[
+    \E[\tau(\theta)]
+    = \E_s[\mu_s(\theta)]
+    = \E[\mu_0(\theta|s)]
+    = \mu_0(\theta)
+  \]
+  by the law of iterated expectations.
+  For the if direction, set
+  \[
+    \pi(\mu_s|\theta)
+    \coloneq \frac{\mu_s(\theta) \tau(\mu_s)}{\mu_0(\theta)}
+  \]
+  and observe that \(\pi\) describes an information structure.
+\end{proof}
+
+We may now rephrase Sender's problem as
+\[
+  \max_{\pi} \E v(\hat{a}, \theta)
+  = \max_{\tau: \E \tau = \mu_0} \E_\tau \hat{v}(\mu).
+\]
+This second statement of the problem leads to a particularly nice geometric interpretation of the problem:
+\begin{proposition}
+  Denote as \(\conv \hat{v}\) the convex hull of the graph of \(\hat{v}\), and let \(V(\mu) \coloneq \sup \{z: (\mu, z) \in \conv \hat{v}\) be the concave closure of \(\hat{v}\).
+  Then, Sender's highest ex ante utility is given by \(V(\mu_0)\).
+\end{proposition}
+\begin{proof}
+  Let \(G \coloneq \{(\mu, \hat{v}(\mu)): \mu \in \Delta(\Theta)\} \subset \Delta(\Theta) \times \bR\) denote the graph of \(\hat{v}\).
+  If \((\mu, z) \in \conv G\), then Carathéodory's theorem implies that \((\mu, z)\) can be written as a convex combination of finitely many points \((\mu_i, z_i)\) in \(G\).
+  Interpreting the weights as probabilities, we see that there is a distribution over these posteriors \(\tau\) that averages to \(\mu\).
+  The corresponding information structure then gives the probability weighted payoffs \(z_i\), which is \(z\).
+\end{proof}
+
+

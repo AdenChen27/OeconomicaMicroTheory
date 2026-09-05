@@ -1,0 +1,78 @@
+\documentclass[oneside,reqno,letterpaper]{book}
+\usepackage[
+  tufte,
+  clearsection=false,
+]{/Users/aden/latex/adenc}
+
+\usepackage[
+  authordate,
+  backend=biber,
+  refsection=chapter,
+]{biblatex-chicago}
+\addbibresource{ref.bib}
+
+\usepackage{csquotes}
+
+\makeatletter
+\def\@makechapterhead#1{%
+  \vspace*{50\p@}%
+  {\parindent\z@\raggedright\normalfont
+    \interlinepenalty\@M
+    \ifnum\c@secnumdepth>\m@ne
+      {\huge\bfseries\thechapter\hspace{.75em}}%
+    \fi
+    {\Huge\bfseries #1\par\nobreak}%
+    \vskip40\p@
+  }%
+}
+\makeatother
+
+
+\title{Oeconomica Micro Theory Cohort: Lecture Notes}
+\author{Aden Chen and Shravan Hari}
+\date{%
+  Compiled \today\\
+  {\normalsize
+    \href{https://github.com/AdenChen27/OeconomicaMicroTheory/blob/main/main.pdf}
+      {View the latest version}%
+  }
+}
+
+\setcounter{tocdepth}{1}
+\newcommand{\chapterbibliography}{%
+  \printbibliography[heading=subbibliography]
+}
+
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\input{chapters/introduction}
+\chapterbibliography
+
+\input{chapters/auction}
+\chapterbibliography
+
+\input{chapters/common-knowledge}
+\chapterbibliography
+
+\input{chapters/no-trade}
+\chapterbibliography
+
+\input{chapters/social-choice}
+\chapterbibliography
+
+\input{chapters/communication}
+\chapterbibliography
+
+\input{chapters/contract}
+\chapterbibliography
+
+
+\appendix
+\input{chapters/farkas}
+\chapterbibliography
+
+\end{document}

@@ -1,0 +1,41 @@
+% Standalone chapter driver.
+\documentclass[reqno,letterpaper]{article}
+\usepackage[
+  tufte,
+  clearsection=false,
+  header=false
+]{/Users/aden/latex/adenc}
+
+\usepackage[authordate,backend=biber]{biblatex-chicago}
+\addbibresource{ref.bib}
+
+\usepackage{csquotes}
+
+\author{}
+\date{Compiled \today}
+
+\makeatletter
+\NewDocumentCommand{\chapter}{s o m}{%
+  \title{#3}%
+  \@ifnextchar\chapterauthor
+    {\standalone@chapterauthor}
+    {\maketitle}%
+}
+\def\standalone@chapterauthor\chapterauthor#1{%
+  \author{#1}%
+  \maketitle
+}
+\makeatother
+
+\ifdefined\chapterfile
+\else
+  \PackageError{chapter}{No chapter selected}{Define \string\chapterfile\space before loading chapter.tex.}
+\fi
+
+\begin{document}
+
+\input{chapters/\chapterfile}
+
+\printbibliography
+
+\end{document}
