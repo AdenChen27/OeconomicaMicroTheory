@@ -2,6 +2,8 @@
 \usepackage[
   tufte,
   clearsection=false,
+  index,
+  theoremwithin=chapter
 ]{/Users/aden/latex/adenc}
 
 \usepackage[
@@ -67,12 +69,16 @@
 \input{chapters/communication}
 \chapterbibliography
 
-\input{chapters/contract}
+\input{chapters/delegation}
 \chapterbibliography
 
+\input{chapters/contract}
+\chapterbibliography
 
 \appendix
 \input{chapters/farkas}
 \chapterbibliography
+
+\backmatter
 
 \end{document}

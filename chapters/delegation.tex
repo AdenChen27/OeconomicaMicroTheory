@@ -1,0 +1,240 @@
+% !TeX root = ../main.tex
+\chapter{Delegation}
+\chapterauthor{Aden Chen}
+
+Suppose the principal (she) wishes to make a decision \(a \in A\), but her optimal decision depends on the state \(\theta\) which is observed only by the agent (he).
+% How should the principal utilize the agent's information?
+
+% There are two natural ways for the principal to utilize the agent's information.
+% She can (1) solicit information from the agent, or (2) delegate her task to the agent.
+One way for the principal to utilize the agent's information is to directly solicit information from him.
+Formally, she specifies a mechanism \((M, g)\), where \(M\) is a message space and \(g: M \to A\) is a decision rule.
+We restrict attention to deterministic decision rules.
+\mnote{We are assuming that the agent is required to submit a message. This assumption is not crucial for the results.}
+The agent conveys information by choosing a message \(m \in M\), after which the principal makes decision \(g(m)\).
+Note in particular that the message space \(M\) is chosen by the principal, who \emph{solicits} information from the agent, whereas in a cheap-talk game, the message space is chosen by the sender, who \emph{offers} information.
+
+This game can be described as follows:
+\begin{itemize}
+  \item The state \(\theta \in [0, 1]\) follows a distribution with density \(f\) and cdf \(F\).
+  \item The principal chooses a mechanism \((M, g)\).
+  \item The agent observes state \(\theta\) and chooses \(a \in A\), where \(A \subset \bR\) is a set of admissible decisions.
+\end{itemize}
+We will suppose the principal and the agent respectively has utility functions
+\[
+  v(a, \theta)
+  = -(a - a_P(\theta))^2,\quad
+  u(a, \theta)
+  = -(a - \theta)^2,
+\]
+so that the principal's optimal action at \(\theta\) is \(a_P(\theta)\), and the agent's optimal action is \(\theta\) itself.
+
+Applying the revelation principal, we may restrict attention to direct mechanisms, where messages are states and the decision rule \(g\) induces the agent to truthfully report the state.
+\begin{lemma}\label{lem:delegation-direct-mech}
+  The principal's problem is equivalent to\footnote{
+Since the agent's report may be mixed (and while we are assuming deterministic decision rule), the usual revelation principal actually only gives a stochastic direct mechanism \(\tilde{g}: \Theta \to \Delta(A)\).
+  However, an argument similar to that used to establish the first part of \Cref{prop:delegation-IC-properties} gives \(\sup \supp \tilde{g}(\theta') \leq \inf \supp \tilde{g}(\theta'')\) for \(\theta' \leq \theta''\).
+  This shows that replacing \(\tilde{g}(\theta) \in \Delta(A)\) by any deterministic \(a \in \supp \tilde{g}(\theta)\) preserves the IC constraints.
+  In particular, choosing the principal optimal \(a \in \supp \tilde{g}(\theta)\) for each \(\theta\) gives a deterministic direct mechanism that gives weakly higher principal payoff.
+  It is thus without loss to optimize over these mechanisms.
+}
+  \[
+    \max_{g: \Theta \to A} \E\left[ v(g(\theta), \theta) \right]
+    \quad\text{s.t.}\quad
+    u(g(\theta), \theta) \geq u(g(\theta), \theta), \quad \forall \theta, \theta' \in \Theta.
+  \]
+\end{lemma}
+
+The \vocab{incentive compatibility} (IC) constraint above says that the agent must be induced to truthfully report under \(g\).
+Let's try to deduce some properties of a \(g\) that satisfy these constraints.
+First recall that a type-\(\theta\) agent's best action is \(\theta\) itself.
+This implies that \(g\) must be weakly increasing, for otherwise if \(\theta_1 < \theta_2\) and \(g(\theta_1) > g(\theta_2)\), then one type can pretend to be the other to get a strictly higher payoff.
+Next, if \(g\) is strictly increasing and continuous at \(\theta \in (0, 1)\), then type-\(\theta\) gets his preferred action \(g(\theta) = \theta\), for otherwise type \(\theta\) can nudge the action in either direction by reporting a nearly type in the corresponding direction to obtain a strictly higher payoff.
+Finally, at a discontinuity point \(\theta\), type \(\theta\) must by continuity be indifferent between \(g^-(\theta)\) and \(g^+(\theta)\), the left- and right-limits of \(g\) at \(\theta\).
+The agent's utility function then implies that \((g^-(\theta) + g^+(\theta)) / 2 = \theta\).
+We summarize these findings as follows:
+
+\begin{proposition}\label{prop:delegation-IC-properties}
+  Let \(g\) satisfy the IC constraints.
+  Then,
+  \begin{itemize}
+    \item \(g\) is weakly increasing;
+    \item if \(g\) is strict increasing and continuous at \(\theta \in (0, 1)\), then \(g(\theta) = \theta\);
+    \item if \(g\) has a discontinuity at \(\theta\), then \((g^-(\theta) + g^+(\theta)) / 2 = \theta\).
+  \end{itemize}
+\end{proposition}
+
+Another way by which the principal can use the agent's information is to \vocab{delegate} her task to the agent.
+The principal restricts the agents authority by specifying a set of admissible actions \(D \subset A\), from which agent picks his desired action.
+It turns out that the delegation problem is equivalent to the information solicitation problem:
+\begin{lemma}
+  The delegation problem
+  \[
+    \max_{D \subset A} \E[v(a_A^\star(\theta), \theta)]
+    \quad\text{s.t.}\quad
+    a_A^\star(\theta) \in \argmax_{a \in D} u(a, \theta)
+  \]
+  has the same value as the information solicitation problem described in \Cref{lem:delegation-direct-mech}.
+\end{lemma}
+Note that \(a_A^\star(\theta)\) specifies the agent's best action in \(D\) at \(\theta\).
+
+One direction of the equivalence is similar to the revelation principal logic.
+Take any set \(D\) and the associated agent's decision rule \(a^\star\).
+The mechanism \(g \equiv a^\star: \Theta \to D\) is incentive compatible and has the same payoff for the principal.
+Since we can convert any delegation set to mechanism with weakly higher payoff, mechanisms must perform weakly better than delegation.
+The other direction can be established similarly, assuming the agent breaks ties in favor of the principal when multiple actions in \(D\) solve his problem \(\argmax_{a \in D} u(a, \theta)\).
+The proof can then be completed by showing that the tie-breaking assumption can be relaxed because any tie-breaking rule results in the same payoff for the principal.\footnote{To see this, consider any two agent decision rules \(g_1, g_2: \Theta \to D\) for a fixed \(D\). If \(g_1(\theta) \neq g_2(\theta)\), then these two actions give the agent the same utility and no other actions in \(D\) gives a higher utility. The specification of the agent's utility then implies that the interval from \(g_1(\theta)\) to \(g_2(\theta)\), of length \(\abs{g_1(\theta) - g_2(\theta)}\), does not intersect \(D\). The intervals corresponding to different \(\theta\) moreover do not intersect because of the previous footnote. The set \(A\) being bounded, we know that for each \(\delta > 0\) there is finitely many \(\theta\) such that \(\abs{g_1(\theta) - g_2(\theta)} > \delta\). Hence, \(g_1\) and \(g_2\) differ for at most countably many \(\theta\) and thus gives the same payoff.}
+
+This equivalence means that we can study delegation problem from two perspectives.
+While looking at delegation sets is perhaps more natural, the mechanism perspective is sometimes more analytically convenient, since it describes what the agent does at each state.
+
+
+\section{When is Delegation Valuable?}
+Without delegation, the principal's best action is \(a_P^\star = \E[a_P(\theta)]\), which can be implemented by giving the agent the delegation set \(D \coloneq \{a_P^\star\}\).
+When can the principal strictly improve her payoff by giving the agent more authority?
+In other words, when does there exist a mechanism that improves upon the best constant mechanism \(g \equiv a_P^\star\)?
+% In other words, when does there exist a direct mechanism whose value
+% \begin{align*}
+%   V(g)
+%   = \E\left[ (a_P^\star - a_P(\theta))^2] - \E[(g(\theta) - a_P(\theta))^2 \right]
+% \end{align*}
+% is strictly positive?
+
+It is natural to first consider a binary mechanism \(g_{\theta^\star}\) mapping states lower than \(\theta^\star\) to some \(a_1\) and states higher than \(\theta^\star\) to \(a_2 > a_1\).
+To make sure the mechanism is incentive compatible, the threshold type \(\theta^\star\) has to be indifferent to to the two actions, or \(\theta^\star = (a_1 + a_2) / 2\).
+Thus these binary mechanisms look like
+\[
+  g_{\theta^\star, \delta}(\theta)
+  \coloneq \begin{cases}
+    \theta^\star - \delta, & \theta \leq \theta^\star \\
+    \theta^\star + \delta, & \theta > \theta^\star
+  \end{cases},
+\]
+where \(\theta^\star \in (0, 1)\) and \(\delta > 0\).
+When can such a mechanism strictly improve upon the constant mechanism \(a_P^\star\)?
+
+We say the principal and the agent are \vocab{minimally aligned} if
+\[
+  \E[a_P(\theta) \mid \theta \leq \theta^\star]
+  < \theta^\star
+  < \E[a_P(\theta) \mid \theta \geq \theta^\star]
+\]
+for some \(\theta^\star\).
+To get some intuition for this condition, note that the first and last terms are the principal's expect payoff when she knows which side on the threshold \(\theta^\star\) the true state lies.
+Thus we would expect \(\E[a_P(\theta) \mid \theta \leq \theta^\star] < \E[a_P(\theta) \mid \theta \geq \theta^\star]\) if the principal and the agent has broadly similar preferences (with ideal points roughly increasing in the state).
+The condition for minimal alignment additionally impose that the ranges of principal's and agent's ideal actions cannot differ too much, so that the principal's ideal actions in the two cases above covers the agent's preferred action at \(\theta^\star\).
+
+When the principal and the agent are minimally aligned, then a binary mechanism with the same threshold strictly improves upon the constant mechanism \(a_P^\star\).
+To see this, suppose \(\theta^\star \geq a_P^\star\) (the other case is symmetric) and consider the binary mechanism with \(\delta \coloneq \theta^\star - a_P^\star\),
+\[
+  g(\theta)
+  \coloneq \begin{cases}
+    a_P^\star, & \theta \leq \theta^\star \\
+    \theta^\star + \delta, & \theta > \theta^\star
+  \end{cases}.
+\]
+This mechanism is identical to the constant mechanism \(a_P^\star\) when \(\theta \leq \theta^\star\) and implements the action \(\theta^\star + \delta > a_P^\star\) when \(\theta > \theta^\star\), thus giving the principal a higher payoff.
+
+This argument thus shows that minimal alignment is sufficient for delegation to be valuable.
+It turns out that minimal alignment is also necessary:
+\begin{proposition}[\textcite{alonso2008OptimalDelegation}, Proposition 1]
+  Delegation is valuable if and only if the principal and the agent are minimally aligned.
+  In particular, delegation is valuable if \(a_P(\theta)\) is weakly increasing in \(\theta\) and \(a_P^\star \in (0, 1)\).
+\end{proposition}
+The proof for necessity is more involved, so we skip it.
+% The proof for necessity is more involved, so we will only show a sketch.
+% Define the value of a mechanism \(g\) as its payoff relative to \(a_P^\star\):
+% \[
+%   V(g)
+%   = \E\left[ (a_P^\star - a_P(\theta))^2] - \E[(g(\theta) - a_P(\theta))^2 \right].
+% \]
+% With some algebra,\footnote{
+%   Write 
+%   \begin{align*}
+%     V(g)
+%     &= \int_0^1 \left(a_P^\star - a_P(\theta)\right)^2 - \left( g(\theta) - a_P(\theta) \right)^2 \dd F(\theta) \\
+%     &= - (a_P^\star)^2 + \int_0^1 2 g(\theta) a_P(\theta) \dd F(\theta) - \int_0^1 g^2(\theta) \dd F(\theta).
+%   \end{align*}
+%   The crucial derivation lies in rewriting the second and third terms using integration by parts, with help from \Cref{prop:delegation-IC-properties}.
+% } one can show the following result:
+% \begin{lemma}
+%   Let \(g\) be a direct mechanism.
+%   Then
+%   \begin{align*}
+%     V(g)
+%     &= - (a_P^\star - g(1))^2 + 2 \int_0^1 T(\theta) \dd g(\theta) \\
+%     &= - (a_P^\star - g(0))^2 - 2 \int_0^1 S(\theta) \dd g(\theta),
+%   \end{align*}
+%   where
+%   \begin{align*}
+%     T(\theta)
+%     &\coloneq F(\theta) \left[ \theta - \E[a_P(z) \mid z \leq \theta] \right], \\
+%     S(\theta)
+%     &\coloneq \left(1 - F(\theta)\right) \left[ \theta - \E[a_P(z) \mid z \geq \theta] \right].
+%   \end{align*}
+% \end{lemma}
+%
+% The two integrals above are Riemann-Stieltjes integrals, which are generalizations of the Riemann integral that place weights \(g(b) - g(a)\) instead of \(b - a\) on any interval \([b, a]\).
+% Thus we can interpret \(2T(\theta)\) and \(-2S(\theta)\) as the marginal value in increasing \(g(\theta)\).
+
+
+\section{Optimal Delegation}
+Suppose the principal and the agent are minimally aligned, so that delegation is valuable.
+What should the optimal delegation set look like?
+With a larger delegation set, the agent can select actions closer to his preferences, which can be further from the principal's ideal point.
+However, with finer actions choice, the agent can also better put his information to use.
+Thus we have an information-incentives trade-off.
+
+To be concrete, let's consider the following two delegation sets:
+\[
+  D_+ \coloneq \{a_1, a_2, a_3\}, \quad
+  D_- \coloneq \{a_1, a_3\},
+\]
+where \(a_1 < a_2 < a_3\).
+Write the midpoint between \(a_i\) and \(a_j\) as \(m_{ij} \coloneq (a_i + a_j) / 2\).
+The associated decision rules are
+\[
+  g_+(\theta)
+  \coloneq \begin{cases}
+    a_1, & \theta \leq m_{12} \\
+    a_2, & m_{12} < \theta \leq m_{23} \\
+    a_3, & m_{23} < \theta
+  \end{cases}, \quad
+  g_-(\theta)
+  \coloneq \begin{cases}
+    a_1, & \theta \leq m_{13} \\
+    a_3, & m_{13} < \theta
+  \end{cases}
+\]
+Thus removing the middle action \(a_2\) from \(D_+\) makes agents of intermediate types \(\theta \in (m_{12}, m_{13})\) choose the more extreme actions \(a_1, a_3\) instead of the middle action \(a_2\).
+Whether this benefits the principal depends on her ideal actions function \(a_P\).
+Intuitively, \(D_+\) performs better when \(a_P\) is relatively flat over \((m_{12}, m_{13})\), and \(D_-\) performs better when \(a_P\) is steep.
+
+With this intuition, one expects the optimal delegation set to have no holes when the agent has preferences sufficiently aligned with that of the principal.
+This is indeed the case.
+Recall that in our current setup, the agent's preferred action at state \(\theta\) is \(\theta\) itself.
+% Consider relaxing our existing model so that the agent has utility function
+% \[
+%   u(a, \theta)
+%   \coloneq -(a - a_A(\theta))^2.
+% \]
+% Thus at state \(\theta\), his preferred action is \(a_A(\theta)\) instead of \(\theta\) itself.
+We can interpolate between the principal and the agent's preferred actions to set
+\[
+  a_A^\lambda(\theta) \coloneq \lambda a_P(\theta) + (1 - \lambda) \theta, \quad
+  u^\lambda(a, \theta) \coloneq -\left(a - a_A^\lambda(\theta)\right)^2.
+\]
+An agent with utility function \(u^\lambda\) has preferred action \(a_A^\lambda(\theta)\) at state \(\theta\), which is close to the principal's preferred action \(a_P(\theta)\) when \(\lambda\) is near \(1\).
+\mnote{We say ``can take,'' since one can always add to a delegation set any action the agent will never choose without changing the principal's payoff. This proposition is thus about the ``minimal'' optimal delegation set.}
+\begin{proposition}[\textcite{alonso2008OptimalDelegation}, Proposition 4]
+  Suppose \(a_P\) is strictly increasing and twice continuously differentiable.
+  Then there exists \(\underline{\lambda} \in (0, 1)\) such that the optimal delegation set when the agent has utility function \(u^\lambda\) can take the form of a single interval for any \(\lambda \geq \underline{\lambda}\).
+\end{proposition}
+
+
+
+
+
+
+
+

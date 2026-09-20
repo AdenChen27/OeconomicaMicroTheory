@@ -4,7 +4,7 @@
 
 \mnote[-5em]{The problem of hidden action is called \vocab{moral hazard}, due to the term's initial use in the context of insurance problems, where one might worry that providing insurance gives incentives to being careless or irresponsible. The confusing terminology stuck, but its moral judgement has largely been stripped.}
 How should a contract be optimally designed when the relevant actions are not directly observable?
-More concretely, consider the problem of a firm (the principal) incentivizing a worker (the agent) to exert effort in their work.
+More concretely, consider the problem of a firm (the principal, she) incentivizing a worker (the agent, he) to exert effort in their work.
 The agent's action is not observable and hence \vocab{noncontractable}.
 The principal thus has to write a contract specifying compensations to the worker based (say) on the agent's output, which is observed.
 \mnote[1em]{More precisely, something is contractable if it is verifiable by contract enforcing entity, typically the court.}
@@ -13,15 +13,15 @@ To generate a nontrivial hidden action problem, outputs cannot perfectly reveal 
 We capture this with stochastic output with distribution determined by the action.
 Thus we write our base model as follows:
 \begin{itemize}
-  \item The principal announces a contract \(w: \bR_+ \to \bR\), which rewards the agent with a payoff of \(w(x)\) when her realized output is \(x\).
+  \item The principal announces a contract \(w: \bR_+ \to \bR\), which rewards the agent with a payoff of \(w(x)\) when his realized output is \(x\).
   \item The agent decides whether to participate in the contract.
-    She gets utility normalized to \(0\) from her outside option if she rejects.
-  \item If the agent decides to participate in the contract, she chooses an action \((F, c) \in \cA\), where \(F \in \Delta \bR_+\) describes the stochastic output of the action and \(c \geq 0\) is the cost of the action.
+    He gets utility normalized to \(0\) from his outside option if he rejects.
+  \item If the agent decides to participate in the contract, he chooses an action \((F, c) \in \cA\), where \(F \in \Delta \bR_+\) describes the stochastic output of the action and \(c \geq 0\) is the cost of the action.
     The set \(\cA\) describes the technology available to the agent.
   \item An output \(x\) with distribution \(F\) is realized, and the agent gets payoff \(w(x)\) from the contract.
 \end{itemize}
 
-Suppose the agent has utility function with monetary payoff and action cost additively separable, so that she has ex post utility \(u\big(w(x)\big) - c\) upon choosing \((F, c)\) and getting payoff \(w(x)\) from the contract.
+Suppose the agent has utility function with monetary payoff and action cost additively separable, so that he has ex post utility \(u\big(w(x)\big) - c\) upon choosing \((F, c)\) and getting payoff \(w(x)\) from the contract.
 The principal is assumed to care only about the agent's output less the payment dictated by contract.
 For simplicity, we assume that the principal is risk neutral and thus has ex post utility \(x - w(x)\).
 The principal and the agent respectively maximize their ex ante expected utility, \(\E_F[x - w(x)]\) and \(\E_F\left[ u\big(w(x)\big) \right] - c\).
@@ -93,7 +93,7 @@ Observe that with any contract of the form \(w(x) = x + \beta\), where \(\beta\)
   \max_{(F, c) \in \cA} \E_F[x + \beta - c],
 \]
 which has the same solution as the first-best problem \(\max_{(F, c) \in \cA} \E_F[x - c]\).
-The principal optimally chooses the lowest \(\beta\) to barely induce the agent to participate, giving her a surplus of \(0\):
+The principal optimally chooses the lowest \(\beta\) to barely induce the agent to participate, giving him a surplus of \(0\):
 \[
   \beta^\star \coloneq -\left(\max_{(F, c) \in \cA} \E_F[x] - c \right) \leq 0.
 \]
@@ -108,7 +108,7 @@ We summarize this finding in the following proposition:
   When the agent has utility function \(u(x) = x\), the second-best payoff is identical to that of the first-best and is attained by the contract \(w^\star(x)\) defined above.
 \end{proposition}
 
-There is a natural economic interpretation of this contract: the principal sells her firm to the agent at a price of \(-\beta \geq 0\), and the agent gets to keep all of her output.
+There is a natural economic interpretation of this contract: the principal sells the firm to the agent at a price of \(-\beta \geq 0\), and the agent gets to keep all of his output.
 
 % With this utility function, the first-best problem maximizes total surplus: \begin{align*}
 %   &\max_{(F, c) \in \cA} \E_F[x - c] \\
@@ -287,7 +287,7 @@ In fact, it turns to be quite hard to obtain natural sufficient conditions for t
 Suppose now that not only are actions hidden and thus noncontractable, the principal is not even certain which actions are available to the agent.
 The principal knows that the agent's action set \(\cA\) includes at least a set of known actions \(\cA_0\), but possibly much more.
 A natural objective for the principal to maximize here is the \vocab{guarantee}, her minimum payoff under all \emph{possible} action spaces \(\cA \supset \cA_0\).
-To focus on the problem of unknown actions, we will again impose the simplifying assumption that the agent has a linear utility function \(u(x) \equiv x\), and also take away her outside option so she must always participate.
+To focus on the problem of unknown actions, we will again impose the simplifying assumption that the agent has a linear utility function \(u(x) \equiv x\), and also take away his outside option so he must always participate.
 To constrain the principal, we additional impose \vocab{limited liability}: payoffs to the agent cannot be negative.
 
 The specialized model can be summarized as follows:
@@ -298,7 +298,7 @@ The specialized model can be summarized as follows:
     \[
       V_A(w \mid \cA) \coloneq \max_{(F, c) \in \cA} \E_F[w(x)] - c.
     \]
-    Similarly, let \(V_P(w \mid \cA) = \E_{F^\star}[x - w(x)]\) denote the principal's utility, where \((F^\star, c^\star)\) solves the agent's problem above.\footnote{When there are multiple solutions to the agent's problem, assume she breaks ties in favor of the principal.}
+    Similarly, let \(V_P(w \mid \cA) = \E_{F^\star}[x - w(x)]\) denote the principal's utility, where \((F^\star, c^\star)\) solves the agent's problem above.\footnote{When there are multiple solutions to the agent's problem, assume he breaks ties in favor of the principal.}
   \item Knowing only \(\cA \supset \cA_0\), the principal maximizes the guarantee \(V_P(w) \coloneq \min_{\cA \supset \cA_0} V_P(w \mid \cA)\).
 \end{itemize}
 
