@@ -233,8 +233,61 @@ An agent with utility function \(u^\lambda\) has preferred action \(a_A^\lambda(
 
 
 
+\section{Aligned Delegation}
+Suppose now that the principal has multiple decisions indexed by \(i = 1, \dots, N\).
+The \(i\)th decision concerns state \(\theta_i\), which is iid over \(i\).
+The principal and the agent respectively have utility functions
+\[
+  v(a, \theta)
+  \coloneq - \sum_i (a_i - \theta_i)^2, \quad
+  u(a, \theta)
+  \coloneq - (a_i - \theta_i - b)^2,
+\]
+where \(a\) and \(\theta\) are action and state profiles.
+Thus the principal wants to match the state, while the agent has a constant bias \(b\) and wants to match \(\theta + b\).
 
+The agent observes all states \((\theta_1, \dots, \theta_N) \in \Theta^N\) jointly, makes all decisions \((a_1, \dots, a_N) \in A^N\), and gets a payoff of \(u(a, \theta)\).
+To be more concrete, we may think of the agent as a professor, actions as grades, and states as student qualities.
+The professor likes to give higher grades if \(b > 0\) and lower grades if \(b < 0\).
+The principal, on the other hand, doesn't observe \(\theta_i\), and suppose further that she doesn't even know the agent's bias \(b \in \bR\).
+\mnote{Such a mechanism is called an \vocab{max-min} optimal mechanism.}
+Consequently, she chooses a mechanism \(\cD = (M, g)\) to maximize her minimum utility across all possible values of \(b\),\footnote{Actually, for some mechanisms and some values of \(b\), there might well be multiple equilibria. In these cases we assume the agent plays the principal preferred equilibrium. An economic justification is that a principal with the power to design the delegation rule should also be able to nudge the agent to play any particular equilibrium, since all of them yields the same payoff to the agent. To me this seems like a weak justification especially in a context where we are discussing robustness, but it's a bullet we have to bite.} where \(M\) is a message space and \(g: M \to A^N\) is an action rule.\footnote{We can allow for much richer mechanisms, including allowing for randomized action rules, or a initial stage where the principal offers a menu of mechanisms from which the principal picks one. The same results hold.}
 
+With multiple decisions, instead of specifying a decision set for each action, the principal has the additional power to restrict the agent's joint action profile, \(\{a_i\}_{i = 1, \dots, N}\).
+One such restriction is on the mean action over \(i\), \(\bar{a} \coloneq \sum_i a_i / N\).
+Call a delegation mechanism with a mean restriction of the form \(\bar{a} = \mu\) a \vocab{budget mechanism}.
+Note that
+\begin{align*}
+  u(a, \theta)
+  = -\sum_i (a_i - \theta_i)^2 + 2b \sum_i (a_i - \theta_i) - N b^2
+  = v(a, \theta) + 2bN \bar{a} + \text{constant},
+\end{align*}
+so with any budget mechanism, the agent (with any \(b\)) and the principal solves the same problem: choose \(a_i\) to match \(\theta_i\) while satisfying the mean restriction.
+Because of this property, we say budget mechanisms are \vocab{aligned delegation} mechanisms.
+
+From the expression above, we also see that when \(b\) is very large, the term \(2b N \bar{a}\) dominates.
+Thus fixing an arbitrary mechanism \(\cD\), an agent with a large bias approximately picks actions to maximize \(\bar{a}\) as allowed by \(\cD\).
+Denote the maximum possible value of \(\bar{a}\) allowed by \(\cD\) as \(\bar{a}^\star\) and consider the budget mechanism with mean restriction \(\bar{a} = \bar{a}^\star\), which we call \(\cD^\star\).
+By the discussion above, an agent with very large \(b\) chooses approximately the same actions under \(\cD\) and \(\cD^\star\).
+Also, since \(\cD^\star\) is an aligned delegation mechanism, it gives the principal the same payoff across all values of \(b\).
+Thus the worse case payoff of \(\cD^\star\) weakly improves upon \(\cD\).
+
+We have shown that the worse case payoff of an arbitrary mechanism \(\cD\) can be weakly improved upon by some budget mechanism.
+This implies that when searching for a max-min optimal mechanism, it is without loss to consider only budget mechanisms.
+Hence:
+\begin{proposition}[\textcite{frankel2014AlignedDelegation}, Proposition 2]
+  The optimal budget mechanism is max-min optimal.
+\end{proposition}
+
+\Textcite{frankel2014AlignedDelegation} generalized this logic much further.
+In particular, he considers the case where players have utility functions with increasing differences
+\[
+  u(a'', \theta'') - u(a', \theta'')
+  \geq u(a'', \theta') - u(a', \theta'), \quad \forall a'' > a', \forall \theta'' > \theta',
+\]
+so that the marginal benefit of increasing action is greater in higher states.
+In this case, when the principal wants to maximize her worse-case payoff, knowing only that the agent has some increasing-differences utility function, Frankel showed that instead of restricting the mean action, the principal wants to restrict every moment of the distribution, or equivalently specify the distribution of actions.
+Such a mechanism is equivalent to a \vocab{ranking mechanism}, where the principal asks the agent to rank each \(\theta_i\) and implements fixed action rules based on the rankings alone.
 
 
 
