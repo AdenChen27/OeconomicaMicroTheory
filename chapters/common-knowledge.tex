@@ -231,6 +231,84 @@ We have now shown the following
 It is in this sense that ``almost common knowledge'' does not approximate common knowledge: conditional on coordination at state \(a\), with each \(\eps > 0\) the agents will not coordinate at \(b\) after arbitrarily many messages, even when they both know the state is \(b\).
 At the limit \(\eps = 0\), however, successful coordination at each state becomes possible.
 
+\section{The Robustness of Equilibria}
+We have seen now that the widely used common knowledge assumption is highly demanding, and even slight deviations from common knowledge can drastically change the outcome of a game.
+So when can we trust the prediction of a game assuming common knowledge?
+\Textcite{kajii1997RobustnessEquilibria} takes a somewhat extreme approach, asking when can the analyst trust the prediction from a complete information game if she is completely agnostic about what higher-order information the agents may have.
+
+Let us fix a complete information game \(\cG = (I, A, \{g_i\})\) with players \(1, \dots, I\), actions \(A = \prod_i A_i\), and payoff functions \(g_i: A \to \bR\).
+We can augment \(\cG\) with an epistemic model \((\Omega, \pi, \{\cP_i\})\) --- where \(\Omega\) is a finite state space, \(\mu\) is the common prior, and \(\cP_i\) is agent \(i\)'s information partition --- to get an incomplete information game \(\cU = (I, A, \{g_i\}, \Omega, \pi, \{\cP_i\})\).\footnote{We additionally (implicitly) assume \(\pi(\omega) > 0\) for each \(\omega \in \Omega\) so that the posterior beliefs \(\pi(\omega \mid \cP_i(\omega'))\) are always well-defined.}
+In the game \(\cU\), agents have the same (state independent) utility functions as they do in \(\cG\).
+
+If all equilibria of \(\cU\) (for any epistemic model) are close to an equilibrium \(\cG\), then this equilibrium is robust to informational assumptions.
+But equilibria in the two games, as described by profiles of strategies, cannot be directly compared.
+Instead, we will compare the corresponding equilibrium distributions of actions, \(\mu \in \Delta(A)\), across the equilibria of both games.
+
+% But while the state space does not change agent's payoffs, \(\cU\) allows for a much larger set of equilibria than the original game \(\cG\) by allowing agents' actions to be correlated through the information structure \((\Omega, \pi, \{\cP_i\})\).
+
+Start by considering the incomplete information game \(\cU\).
+We are interested in \vocab{Bayes Nash} equilibria of this game, each described by a strategy profile \(\{\sigma_i\}\), \(\sigma_i: \cP_i \to \Delta(A_i)\), such that
+\mnote{Note that we abuse notation slightly in writing \(g_i(\sigma(\cP_i(\omega)))\) for \(\sum_a g_i(a) \sigma(\cP(\omega) \mid \omega)\).}
+\[
+  \sum_{\omega' \in \cP_i(\omega)} g_i\left( \sigma\big(\cP(\omega')\big) \right) \pi\left[ \omega' \mid \cP_i(\omega) \right]
+  \geq \sum_{\omega' \in \cP_i(\omega)} g_i\left( a_i, \sigma_{-i}\big(\cP_{-i}(\omega')\big) \right) \pi\left[ \omega' \mid \cP_i(\omega) \right]
+\]
+for each \(i\), \(a_i \in A_i\), and each \(\omega \in \Omega\).
+That is, after gaining information \(\cP_i(\omega)\), agent \(i\)'s best response is given by the (potentially mixed) strategy \(\sigma_i\), provided that others also follow \(\sigma_{-i}\).
+An alternative viewpoint turns out to be useful: think of an indifferent mediator who privately tells each agent \(i\) that the state is contained in \(\cP_i(\omega)\) and gives an action recommendation following \(\sigma_i(\cP(\omega))\).
+The display above then says that each agent will follow the action recommendations of this mediator.
+
+Now, let \(\mu \in \Delta(A)\) be the joint distribution of actions corresponding to this equilibrium.
+It turns out that the following analogous restriction must hold:
+\begin{equation}\label{eq:ck-correlated-equilibrium}
+  \sum_{a_{-i} \in A_{-i}} g_i(a_i, a_{-i}) \mu(a_i, a_{-i})
+  \geq \sum_{a_{-i} \in A_{-i}} g_i(a_i', a_{-i}) \mu(a_i, a_{-i})
+  ,\quad \forall i, a_i, a_i'.
+\end{equation}
+Intuitively, if the mediator degrades the information she gives so that instead of telling the agents \(\cP_i(\omega)\) and giving action recommendations, she only gives each agent the same action recommendations as before, the agents will still have incentives to follow these recommendations.\footnote{
+  Formally, the defining property of a Bayes Nash equilibrium implies that the function
+  \[
+    a_i \longmapsto \sum_{\omega' \in \cP_i(\omega)} g_i\left( a_i, \sigma_{-i}\big(\cP_{-i}(\omega')\big) \right) \pi\left[ \omega' \mid \cP_i(\omega) \right]
+  \]
+  is maximized at each \(a_i \in \supp \sigma_i(\cdot \mid \omega)\).
+  Thus whenever \(a_i\) is recommended at \(\omega\), we have
+  \[
+    \sum_{\omega' \in \cP_i(\omega)} \left[ g_i\left(a_i, \sigma_{-i}\big(\cP_{-i}(\omega')\big) \right) - g_i\left( a_i', \sigma_{-i}\big(\cP_{-i}(\omega')\big) \right) \right] \pi \left[ \omega' \mid \cP_i(\omega) \right]\geq 0.
+  \]
+  Suitably aggregating these expressions gives the desired result.
+}
+The reverse is also true: when \eqref{eq:ck-correlated-equilibrium} is satisfied for some \(\mu \in \Delta(A)\), one can find \((\Omega, \mu, \{\cP_i\})\) such that the game \(\cU = (I, A, \{g_i\}, \Omega, \pi \{\cP_i\})\) has an (Bayes Nash) equilibrium with action distribution \(\mu\): simply construct each agent's partition to reflect the action recommendations for them.
+
+We summarize these results as follows:
+\begin{proposition}
+  Fix \(\cG = \{I, A, \{g_i\}\}\).
+  Let \(\mu \in \Delta(A)\).
+  Then \(\mu\) describes the action distribution of some \(\cU = (I, A, \{g_i\}, \Omega, \pi, \{\cP_i\})\) if and only if \eqref{eq:ck-correlated-equilibrium} is satisfied.
+\end{proposition}
+
+In this case, we say \(\mu\) is a \vocab{correlated equilibrium} of the \emph{original} (complete information) game \(\cG\), since it describes the outcome of the game when we allow the agents' actions to be correlated through additional information, or equivalently, the imagined mediator.
+
+We can now answer our original question about robustness:
+\begin{corollary}
+  If \(\cG = \{I, A, \{g_i\}\}\) has a unique correlated equilibrium, then this equilibrium is robust to incomplete information in the sense that any \(\cU = \{I, A, \{g_i\}, \Omega, \pi, \{\cP_i\}\}\).
+\end{corollary}
+
+In fact, more can be said.
+Suppose the analyst is not just agnostic about the higher-order beliefs, but she is also only confident that the payoffs are correctly specified with high probability.
+Let us again fix the complete information game \(\cG\) and consider an incomplete information game \(\cU = (I, A, \Omega, \pi, \{\cP_i\}, \{u_i\})\) with the same number of players and the same action sets as \(\cG\).
+Now, player \(i\) has utility function \(u_i: A \times \Omega \to \bR\) depending on both the action profile and the state.
+We say \(\cU\) is an \vocab{\(\eps\)-elaboration} of \(\cG\) if agents have (and know they have) the same payoffs in \(\cU\) as they do in \(\cG\) with probability at least \(1 - \eps\):
+\[
+  \pi\left\{ \omega: u_i(a, \omega') = g_i(a), \forall a \in A, \omega' \in \cP_i(\omega), i = 1, \dots I \right\}
+  \geq 1 - \eps.
+\]
+Denote the \(\max\) norm on action distributions as \(\norm{\mu - \nu} = \max_{a \in A} \abs{\mu(a) - \nu(a)}\), and say action distribution \(\mu\) is \vocab{robust to incomplete information} in \(\cG\) if for each \(\delta > 0\) there exists \(\eps > 0\) such that all \(\eps\)-elaborations of \(\cG\) has an equilibrium action distribution \(\nu\) with \(\norm{\mu - \nu} \leq \delta\).
+\todo{check definition (equivalence of ineq phrasing + whether existence is required)}
+
+\Textcite{kajii1997RobustnessEquilibria} proved the following result:
+\begin{proposition}
+  If \(\cG\) has a unique correlated equilibrium \(\mu\), then it is the unique robust equilibrium of the game.
+\end{proposition}
 
 
 
