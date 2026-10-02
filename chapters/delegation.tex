@@ -289,5 +289,66 @@ so that the marginal benefit of increasing action is greater in higher states.
 In this case, when the principal wants to maximize her worse-case payoff, knowing only that the agent has some increasing-differences utility function, Frankel showed that instead of restricting the mean action, the principal wants to restrict every moment of the distribution, or equivalently specify the distribution of actions.
 Such a mechanism is equivalent to a \vocab{ranking mechanism}, where the principal asks the agent to rank each \(\theta_i\) and implements fixed action rules based on the rankings alone.
 
+\section{Delegation and Screening}
+We have been operating under the assumption that the principal only has a limited ability to control actions by restricting the action space.
+We could instead consider a richer model where the principal chooses a contract specifying transfers to the agent for each action he chooses.
+Specifically, consider the following setup:
+\mnote{This is typically called a \vocab{screening} problem: the agent has some private information which the principal elicits by offering a menu of options designed for the agent to self-select into.}
+\begin{itemize}
+  \item State \(\theta \in \Theta\) follows some distribution, which is common knowledge.
+  \item Finite action space \(A\).
+    The realized state \(\theta\) is observed privately only by the agent.
+  \item The principal chooses payment rule \(t: A \to \bR \cup \{\pm \infty\}\) specifying the principal's payment to the agent when action \(a\) is chosen.
+  \item The principal has utility \(v(a, \theta) - t(a)\).
+  \item The agent has utility \(\lambda u(a, \theta) + t(a)\), where \(\lambda > 0\) describes how much the agent cares about choosing his preferred right action.
+\end{itemize}
+
+To limit the principal's power, we endow the agent with an outside option with utility normalized to \(0\) and assume \(u \geq 0\) (he could, for instance, decline choosing an action).
+More specifically, suppose the agent learns the state \(\theta\) before deciding whether to help the principal.
+This can be modelled by adding \vocab{ex post individual rationality} constraints
+\[
+  \max_{a \in A} \lambda u(a, \theta) + t(a) \geq 0, \quad \forall \theta, \lambda \geq 0
+\]
+requiring the agent to be willing to participate in any state \(\theta\) for any \(\lambda\).
+
+
+In this model, delegation is a particular of payment rule, one of the form
+\[
+   t(a) \coloneq \begin{cases}
+     0, & a \in D \\
+     -\infty, & a \notin D
+   \end{cases},
+\]
+where \(D \subset A\) is the set of acceptable actions.
+It turns out that delegation can emerge endogenously as optimal solutions to screening problems when we add in some form of robustness considerations:
+
+\begin{proposition}
+  Suppose both \(v\) and \(u\) are common knowledge, but only the agent knows \(\lambda\).
+  The principal chooses \(t\) to maximize her guarantee payoff over all possible values of \(\lambda \geq 0\).
+  Then, delegation is an optimal solution to the screening problem.
+\end{proposition}
+\begin{proof}
+  Fix any candidate \(t\).
+  % Ex post individual rationality for \(\lambda = 0\) implies \(\max t(a) \geq 0\).
+  Note that at \(\lambda = 0\), the agent chooses only \(\argmax t(a)\).
+  Thus the modified transfer rule
+  \[
+    t'(a)
+    \coloneq \begin{cases}
+      0, & a \in \argmax t(a) \\
+      -\infty, & \text{otherwise}
+    \end{cases},
+  \]
+  gives the principal the same payoff as \(t\) when \(\lambda = 0\).
+  Moreover, the principal gets the same payoff for each \(\lambda \geq 0\) under \(t'\), so \(t'\) gives weakly higher guarantee than does \(t\).
+  Finally, note that ex post individual rationality for \(t\) is equivalent to \(\max t(a) \geq 0\), so this modification preserves ex post individual rationality.
+\end{proof}
+
+This proof uses the same idea as Proposition 12 in \textcite{alonso2026robust}, but with a slightly different setup.
+
+
+
+
+
 
 
